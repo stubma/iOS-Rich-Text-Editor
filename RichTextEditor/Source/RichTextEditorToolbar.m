@@ -57,6 +57,11 @@
 @property (nonatomic, strong) RichTextEditorToggleButton *btnParagraphOutdent;
 @property (nonatomic, strong) RichTextEditorToggleButton *btnParagraphFirstLineHeadIndent;
 @property (nonatomic, strong) RichTextEditorToggleButton *btnBulletPoint;
+
+// last selection
+@property (nonatomic, assign) NSString* lastSelectedFontName;
+@property (nonatomic, assign) NSInteger lastSelectedFontSize;
+
 @end
 
 @implementation RichTextEditorToolbar
@@ -82,6 +87,28 @@
 }
 
 #pragma mark - Public Methods -
+
+- (NSString*)lastSelectedFontName {
+	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
+	return [d stringForKey:@"RichTextEditor_fontName"];
+}
+
+- (void)setLastSelectedFontName:(NSString *)lastSelectedFontName {
+	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
+	[d setObject:lastSelectedFontName forKey:@"RichTextEditor_fontName"];
+	[d synchronize];
+}
+
+- (NSInteger)lastSelectedFontSize {
+	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
+	return [d integerForKey:@"RichTextEditor_fontSize"];
+}
+
+- (void)setLastSelectedFontSize:(NSInteger)lastSelectedFontSize {
+	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
+	[d setInteger:lastSelectedFontSize forKey:@"RichTextEditor_fontSize"];
+	[d synchronize];
+}
 
 - (void)redraw
 {
@@ -388,14 +415,20 @@
 										width:120
 								  andSelector:@selector(fontSelected:)];
 	[self.btnFont setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 10)];
-	[self.btnFont setTitle:@"Font" forState:UIControlStateNormal];
+	NSString* fontName = self.lastSelectedFontName;
+	[self.btnFont setTitle:fontName ? fontName : @"Font" forState:UIControlStateNormal];
 	
 	
 	self.btnFontSize = [self buttonWithImageNamed:@"dropDownTriangle.png"
 											width:50
 									  andSelector:@selector(fontSizeSelected:)];
 	[self.btnFontSize setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 10)];
-	[self.btnFontSize setTitle:@"14" forState:UIControlStateNormal];
+	NSInteger fontSize = self.lastSelectedFontSize;
+	if(fontSize <= 0) {
+		fontSize = 14;
+	}
+	[self.btnFontSize setTitle:[NSString stringWithFormat:@"%ld", fontSize]
+					  forState:UIControlStateNormal];
 	
 	self.btnBold = [self buttonWithImageNamed:@"bold.png"
 								  andSelector:@selector(boldSelected:)];
@@ -582,6 +615,7 @@
 
 - (void)richTextEditorFontSizePickerViewControllerDidSelectFontSize:(NSNumber *)fontSize
 {
+	self.lastSelectedFontSize = [fontSize integerValue];
 	[self.delegate richTextEditorToolbarDidSelectFontSize:fontSize];
 	[self dismissViewController];
 }
@@ -605,6 +639,7 @@
 
 - (void)richTextEditorFontPickerViewControllerDidSelectFontWithName:(NSString *)fontName
 {
+	self.lastSelectedFontName = fontName;
 	[self.delegate richTextEditorToolbarDidSelectFontWithName:fontName];
 	[self dismissViewController];
 }
