@@ -101,6 +101,7 @@
 		1AFAED8617C804AB00E450B0 /* numlist@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFAED8417C804AB00E450B0 /* numlist@2x.png */; };
 		1AFAED8717C804AB00E450B0 /* bullist@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFAED8517C804AB00E450B0 /* bullist@2x.png */; };
 		1AFAED8917C80FC600E450B0 /* dropDownTriangle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFAED8817C80FC600E450B0 /* dropDownTriangle@2x.png */; };
+		924245E9207F22F400BD6988 /* RichTextEditor.strings in Resources */ = {isa = PBXBuildFile; fileRef = 924245EB207F22F400BD6988 /* RichTextEditor.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -229,6 +230,8 @@
 		1AFAED8417C804AB00E450B0 /* numlist@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "numlist@2x.png"; sourceTree = "<group>"; };
 		1AFAED8517C804AB00E450B0 /* bullist@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bullist@2x.png"; sourceTree = "<group>"; };
 		1AFAED8817C80FC600E450B0 /* dropDownTriangle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropDownTriangle@2x.png"; sourceTree = "<group>"; };
+		924245EA207F22F400BD6988 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/RichTextEditor.strings; sourceTree = "<group>"; };
+		924245EC207F231F00BD6988 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/RichTextEditor.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -321,6 +324,7 @@
 				1AFAED7017C7F9CA00E450B0 /* underline@2x.png */,
 				15C4130817A4444B0073D047 /* undo.png */,
 				15C4130917A4444B0073D047 /* unlink.png */,
+				924245EB207F22F400BD6988 /* RichTextEditor.strings */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -527,6 +531,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				"zh-Hans",
 			);
 			mainGroup = 158389031735A5D7006DE713;
 			productRefGroup = 1583890F1735A5D7006DE713 /* Products */;
@@ -558,6 +563,7 @@
 				158389271735A5D7006DE713 /* Default@2x.png in Resources */,
 				153F9594179F9953005B2487 /* popoverArrowRight@2x.png in Resources */,
 				153F9596179F9953005B2487 /* popoverArrowUp.png in Resources */,
+				924245E9207F22F400BD6988 /* RichTextEditor.strings in Resources */,
 				158389291735A5D7006DE713 /* Default-568h@2x.png in Resources */,
 				1583892C1735A5D7006DE713 /* MainStoryboard_iPhone.storyboard in Resources */,
 				153F9599179F9953005B2487 /* popoverBg.png in Resources */,
@@ -715,6 +721,15 @@
 				158389431735A5D7006DE713 /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		924245EB207F22F400BD6988 /* RichTextEditor.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				924245EA207F22F400BD6988 /* en */,
+				924245EC207F231F00BD6988 /* zh-Hans */,
+			);
+			name = RichTextEditor.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
