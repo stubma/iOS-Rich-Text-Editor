@@ -476,6 +476,12 @@
 	
 	self.btnParagraphFirstLineHeadIndent = [self buttonWithImageNamed:@"firstLineIndent.png"
 														  andSelector:@selector(paragraphHeadIndentOutdentSelected:)];
+	
+	// notify delegate for first name
+	if(fontName) {
+		[self.delegate richTextEditorToolbarDidSelectFontWithName:fontName];
+	}
+	[self.delegate richTextEditorToolbarDidSelectFontSize:@(fontSize)];
 }
 
 - (RichTextEditorToggleButton *)buttonWithImageNamed:(NSString *)image width:(NSInteger)width andSelector:(SEL)selector

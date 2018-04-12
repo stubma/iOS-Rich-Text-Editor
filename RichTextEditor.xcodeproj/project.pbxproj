@@ -232,6 +232,7 @@
 		1AFAED8817C80FC600E450B0 /* dropDownTriangle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropDownTriangle@2x.png"; sourceTree = "<group>"; };
 		924245EA207F22F400BD6988 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/RichTextEditor.strings; sourceTree = "<group>"; };
 		924245EC207F231F00BD6988 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/RichTextEditor.strings"; sourceTree = "<group>"; };
+		92424628207F3B6200BD6988 /* iOS-Rich-Text-Editor.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "iOS-Rich-Text-Editor.podspec"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -430,6 +431,7 @@
 		158389191735A5D7006DE713 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				92424628207F3B6200BD6988 /* iOS-Rich-Text-Editor.podspec */,
 				1583891A1735A5D7006DE713 /* RichTextEditor-Info.plist */,
 				1583891B1735A5D7006DE713 /* InfoPlist.strings */,
 				1583891E1735A5D7006DE713 /* main.m */,
