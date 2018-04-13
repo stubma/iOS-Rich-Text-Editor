@@ -30,6 +30,7 @@
 #import "UIFont+RichTextEditor.h"
 #import "NSAttributedString+RichTextEditor.h"
 #import "UIView+RichTextEditor.h"
+#import "UIColor+RichTextEditor.h"
 
 #define RICHTEXTEDITOR_TOOLBAR_HEIGHT 40
 
@@ -43,6 +44,8 @@
 // last selection
 @property (nonatomic, assign) NSString* lastSelectedFontName;
 @property (nonatomic, assign) NSInteger lastSelectedFontSize;
+@property (nonatomic, assign) UIColor* lastSelectedForegroundColor;
+@property (nonatomic, assign) UIColor* lastSelectedBackgroundColor;
 
 @end
 
@@ -120,6 +123,38 @@
 - (void)setLastSelectedFontSize:(NSInteger)lastSelectedFontSize {
 	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
 	[d setInteger:lastSelectedFontSize forKey:@"RichTextEditor_fontSize"];
+	[d synchronize];
+}
+
+- (UIColor*)lastSelectedForegroundColor {
+	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
+	NSString* cstr = [d stringForKey:@"RichTextEditor_foregroundColor"];
+	if(!cstr) {
+		cstr = @"000000ff";
+	}
+	return [UIColor rte_colorWithHexString:cstr];
+}
+
+- (void)setLastSelectedForegroundColor:(UIColor *)lastSelectedForegroundColor {
+	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
+	NSString* cstr = [UIColor rte_hexValuesFromUIColor:lastSelectedForegroundColor];
+	[d setObject:cstr forKey:@"RichTextEditor_foregroundColor"];
+	[d synchronize];
+}
+
+- (UIColor*)lastSelectedBackgroundColor {
+	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
+	NSString* cstr = [d stringForKey:@"RichTextEditor_backgroundColor"];
+	if(!cstr) {
+		cstr = @"00000000";
+	}
+	return [UIColor rte_colorWithHexString:cstr];
+}
+
+- (void)setLastSelectedBackgroundColor:(UIColor *)lastSelectedBackgroundColor {
+	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
+	NSString* cstr = [UIColor rte_hexValuesFromUIColor:lastSelectedBackgroundColor];
+	[d setObject:cstr forKey:@"RichTextEditor_backgroundColor"];
 	[d synchronize];
 }
 
@@ -245,11 +280,13 @@
 
 - (void)richTextEditorToolbarDidSelectTextBackgroundColor:(UIColor *)color
 {
+	self.lastSelectedBackgroundColor = color;
 	[self applyAttrubutesToSelectedRange:color forKey:NSBackgroundColorAttributeName];
 }
 
 - (void)richTextEditorToolbarDidSelectTextForegroundColor:(UIColor *)color
 {
+	self.lastSelectedForegroundColor = color;
 	[self applyAttrubutesToSelectedRange:color forKey:NSForegroundColorAttributeName];
 }
 

@@ -34,6 +34,7 @@
 #import "WEPopoverController.h"
 #import "RichTextEditorToggleButton.h"
 #import "UIFont+RichTextEditor.h"
+#import "UIColor+RichTextEditor.h"
 
 #define ITEM_SEPARATOR_SPACE 5
 #define ITEM_TOP_AND_BOTTOM_BORDER 5
@@ -61,6 +62,8 @@
 // last selection
 @property (nonatomic, assign, readonly) NSString* lastSelectedFontName;
 @property (nonatomic, assign, readonly) NSInteger lastSelectedFontSize;
+@property (nonatomic, assign, readonly) UIColor* lastSelectedForegroundColor;
+@property (nonatomic, assign, readonly) UIColor* lastSelectedBackgroundColor;
 
 @end
 
@@ -96,6 +99,24 @@
 - (NSInteger)lastSelectedFontSize {
 	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
 	return [d integerForKey:@"RichTextEditor_fontSize"];
+}
+
+- (UIColor*)lastSelectedForegroundColor {
+	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
+	NSString* cstr = [d stringForKey:@"RichTextEditor_foregroundColor"];
+	if(!cstr) {
+		cstr = @"000000ff";
+	}
+	return [UIColor rte_colorWithHexString:cstr];
+}
+
+- (UIColor*)lastSelectedBackgroundColor {
+	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
+	NSString* cstr = [d stringForKey:@"RichTextEditor_backgroundColor"];
+	if(!cstr) {
+		cstr = @"00000000";
+	}
+	return [UIColor rte_colorWithHexString:cstr];
 }
 
 - (void)redraw
@@ -470,6 +491,8 @@
 		[self.delegate richTextEditorToolbarDidSelectFontWithName:fontName];
 	}
 	[self.delegate richTextEditorToolbarDidSelectFontSize:@(fontSize)];
+	[self.delegate richTextEditorToolbarDidSelectTextForegroundColor:self.lastSelectedForegroundColor];
+	[self.delegate richTextEditorToolbarDidSelectTextBackgroundColor:self.lastSelectedBackgroundColor];
 }
 
 - (RichTextEditorToggleButton *)buttonWithImageNamed:(NSString *)image width:(NSInteger)width andSelector:(SEL)selector

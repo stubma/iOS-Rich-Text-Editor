@@ -102,6 +102,7 @@
 		1AFAED8717C804AB00E450B0 /* bullist@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFAED8517C804AB00E450B0 /* bullist@2x.png */; };
 		1AFAED8917C80FC600E450B0 /* dropDownTriangle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFAED8817C80FC600E450B0 /* dropDownTriangle@2x.png */; };
 		924245E9207F22F400BD6988 /* RichTextEditor.strings in Resources */ = {isa = PBXBuildFile; fileRef = 924245EB207F22F400BD6988 /* RichTextEditor.strings */; };
+		92C6552720806E7300F111E4 /* UIColor+RichTextEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C6552620806E7300F111E4 /* UIColor+RichTextEditor.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -233,6 +234,8 @@
 		924245EA207F22F400BD6988 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/RichTextEditor.strings; sourceTree = "<group>"; };
 		924245EC207F231F00BD6988 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/RichTextEditor.strings"; sourceTree = "<group>"; };
 		92424628207F3B6200BD6988 /* iOS-Rich-Text-Editor.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "iOS-Rich-Text-Editor.podspec"; sourceTree = SOURCE_ROOT; };
+		92C6552520806E7200F111E4 /* UIColor+RichTextEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+RichTextEditor.h"; sourceTree = "<group>"; };
+		92C6552620806E7300F111E4 /* UIColor+RichTextEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+RichTextEditor.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -335,6 +338,8 @@
 			children = (
 				153F955B179F9953005B2487 /* NSAttributedString+RichTextEditor.h */,
 				153F955C179F9953005B2487 /* NSAttributedString+RichTextEditor.m */,
+				92C6552520806E7200F111E4 /* UIColor+RichTextEditor.h */,
+				92C6552620806E7300F111E4 /* UIColor+RichTextEditor.m */,
 				153F955D179F9953005B2487 /* UIFont+RichTextEditor.h */,
 				153F955E179F9953005B2487 /* UIFont+RichTextEditor.m */,
 				153F955F179F9953005B2487 /* UIView+RichTextEditor.h */,
@@ -526,6 +531,11 @@
 			attributes = {
 				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "Aryan Ghassemi";
+				TargetAttributes = {
+					1583890D1735A5D7006DE713 = {
+						DevelopmentTeam = 6N3H22GT6H;
+					};
+				};
 			};
 			buildConfigurationList = 158389081735A5D7006DE713 /* Build configuration list for PBXProject "RichTextEditor" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -671,6 +681,7 @@
 				153F95A1179F9953005B2487 /* RichTextEditorColorPickerViewController.m in Sources */,
 				153F958A179F9953005B2487 /* NSAttributedString+RichTextEditor.m in Sources */,
 				15B6E20F17A4C2820015867C /* RichTextEditorToggleButton.m in Sources */,
+				92C6552720806E7300F111E4 /* UIColor+RichTextEditor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -791,6 +802,7 @@
 		1583894B1735A5D7006DE713 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = 6N3H22GT6H;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RichTextEditor/RichTextEditor-Prefix.pch";
 				INFOPLIST_FILE = "RichTextEditor/RichTextEditor-Info.plist";
@@ -802,6 +814,7 @@
 		1583894C1735A5D7006DE713 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = 6N3H22GT6H;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RichTextEditor/RichTextEditor-Prefix.pch";
 				INFOPLIST_FILE = "RichTextEditor/RichTextEditor-Info.plist";
