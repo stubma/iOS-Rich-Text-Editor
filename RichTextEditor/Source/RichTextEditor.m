@@ -526,7 +526,7 @@
 			
 			// save font size and name
 			if(fontSize) {
-				self.lastSelectedFontSize = fontSize;
+				self.lastSelectedFontSize = [fontSize integerValue];
 			}
 			if(fontName) {
 				self.lastSelectedFontName = fontName;
@@ -550,7 +550,7 @@
 		
 		// save font size and name
 		if(fontSize) {
-			self.lastSelectedFontSize = fontSize;
+			self.lastSelectedFontSize = [fontSize integerValue];
 		}
 		if(fontName) {
 			self.lastSelectedFontName = fontName;
