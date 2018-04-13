@@ -59,8 +59,8 @@
 @property (nonatomic, strong) RichTextEditorToggleButton *btnBulletPoint;
 
 // last selection
-@property (nonatomic, assign) NSString* lastSelectedFontName;
-@property (nonatomic, assign) NSInteger lastSelectedFontSize;
+@property (nonatomic, assign, readonly) NSString* lastSelectedFontName;
+@property (nonatomic, assign, readonly) NSInteger lastSelectedFontSize;
 
 @end
 
@@ -93,21 +93,9 @@
 	return [d stringForKey:@"RichTextEditor_fontName"];
 }
 
-- (void)setLastSelectedFontName:(NSString *)lastSelectedFontName {
-	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
-	[d setObject:lastSelectedFontName forKey:@"RichTextEditor_fontName"];
-	[d synchronize];
-}
-
 - (NSInteger)lastSelectedFontSize {
 	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
 	return [d integerForKey:@"RichTextEditor_fontSize"];
-}
-
-- (void)setLastSelectedFontSize:(NSInteger)lastSelectedFontSize {
-	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
-	[d setInteger:lastSelectedFontSize forKey:@"RichTextEditor_fontSize"];
-	[d synchronize];
 }
 
 - (void)redraw
@@ -621,7 +609,6 @@
 
 - (void)richTextEditorFontSizePickerViewControllerDidSelectFontSize:(NSNumber *)fontSize
 {
-	self.lastSelectedFontSize = [fontSize integerValue];
 	[self.delegate richTextEditorToolbarDidSelectFontSize:fontSize];
 	[self dismissViewController];
 }
@@ -645,7 +632,6 @@
 
 - (void)richTextEditorFontPickerViewControllerDidSelectFontWithName:(NSString *)fontName
 {
-	self.lastSelectedFontName = fontName;
 	[self.delegate richTextEditorToolbarDidSelectFontWithName:fontName];
 	[self dismissViewController];
 }

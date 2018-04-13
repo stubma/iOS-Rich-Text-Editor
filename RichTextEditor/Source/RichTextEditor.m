@@ -39,6 +39,11 @@
 // Gets set to YES when the user starts chaning attributes when there is no text selection (selecting bold, italic, etc)
 // Gets set to NO  when the user changes selection or starts typing
 @property (nonatomic, assign) BOOL typingAttributesInProgress;
+
+// last selection
+@property (nonatomic, assign) NSString* lastSelectedFontName;
+@property (nonatomic, assign) NSInteger lastSelectedFontSize;
+
 @end
 
 @implementation RichTextEditor
@@ -92,6 +97,30 @@
     //If there is text already, then we do want to update the toolbar. Otherwise we don't.
     if ([self hasText])
         [self updateToolbarState];
+}
+
+#pragma mark - Public Methods -
+
+- (NSString*)lastSelectedFontName {
+	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
+	return [d stringForKey:@"RichTextEditor_fontName"];
+}
+
+- (void)setLastSelectedFontName:(NSString *)lastSelectedFontName {
+	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
+	[d setObject:lastSelectedFontName forKey:@"RichTextEditor_fontName"];
+	[d synchronize];
+}
+
+- (NSInteger)lastSelectedFontSize {
+	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
+	return [d integerForKey:@"RichTextEditor_fontSize"];
+}
+
+- (void)setLastSelectedFontSize:(NSInteger)lastSelectedFontSize {
+	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
+	[d setInteger:lastSelectedFontSize forKey:@"RichTextEditor_fontSize"];
+	[d synchronize];
 }
 
 #pragma mark - Override Methods -
@@ -494,6 +523,14 @@
 		// if allowed, apply
 		if(shouldApply) {
 			self.attributedText = attributedString;
+			
+			// save font size and name
+			if(fontSize) {
+				self.lastSelectedFontSize = fontSize;
+			}
+			if(fontName) {
+				self.lastSelectedFontName = fontName;
+			}
 		}
 		
 		[self setSelectedRange:range];
