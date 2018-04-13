@@ -280,7 +280,9 @@
 
 - (void)richTextEditorToolbarDidSelectTextBackgroundColor:(UIColor *)color
 {
-	self.lastSelectedBackgroundColor = color;
+	if(color) {
+		self.lastSelectedBackgroundColor = color;
+	}
 	[self applyAttrubutesToSelectedRange:color forKey:NSBackgroundColorAttributeName];
 }
 
