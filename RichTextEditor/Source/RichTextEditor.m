@@ -547,6 +547,14 @@
 								   fromDictionary:self.typingAttributes];
 		if (newFont) 
             [self applyAttributeToTypingAttribute:newFont forKey:NSFontAttributeName];
+		
+		// save font size and name
+		if(fontSize) {
+			self.lastSelectedFontSize = fontSize;
+		}
+		if(fontName) {
+			self.lastSelectedFontName = fontName;
+		}
 	}
 	
 	[self updateToolbarState];
