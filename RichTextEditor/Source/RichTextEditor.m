@@ -479,7 +479,22 @@
 												  [attributedString addAttributes:[NSDictionary dictionaryWithObject:newFont forKey:NSFontAttributeName] range:range];
 										  }];
 		[attributedString endEditing];
-		self.attributedText = attributedString;
+		
+		// ask data source if this change is allowed
+		BOOL shouldApply = YES;
+		if(self.dataSource && [self.dataSource respondsToSelector:@selector(shouldApplyFontAttributesWithBoldTrait:italicTrait:fontName:fontSize:toTextAtRange:textAfterApplied:)]) {
+			shouldApply = [self.dataSource shouldApplyFontAttributesWithBoldTrait:isBold
+																	  italicTrait:isItalic
+																		 fontName:fontName
+																		 fontSize:fontSize
+																	toTextAtRange:range
+																 textAfterApplied:attributedString];
+		}
+		
+		// if allowed, apply
+		if(shouldApply) {
+			self.attributedText = attributedString;
+		}
 		
 		[self setSelectedRange:range];
 	}
