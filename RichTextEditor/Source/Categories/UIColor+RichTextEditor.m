@@ -12,8 +12,8 @@
 
 +(UIColor *)rte_colorWithHexString:(NSString *)hexString {
 
-    if ([hexString length] != 6) {
-        return nil;
+    if ([hexString length] != 8) {
+        return [UIColor blackColor];
     }
     
     // Brutal and not-very elegant test for non hex-numeric characters
@@ -21,7 +21,7 @@
     NSUInteger match = [regex numberOfMatchesInString:hexString options:NSMatchingReportCompletion range:NSMakeRange(0, [hexString length])];
     
     if (match != 0) {
-        return nil;
+        return [UIColor blackColor];
     }
     
     NSRange rRange = NSMakeRange(0, 2);
@@ -60,7 +60,7 @@
 +(NSString *)rte_hexValuesFromUIColor:(UIColor *)color {
     
     if (!color) {
-        return nil;
+        return @"00000000";
     }
     
     if (color == [UIColor whiteColor]) {

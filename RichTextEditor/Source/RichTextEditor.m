@@ -129,7 +129,7 @@
 - (UIColor*)lastSelectedForegroundColor {
 	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
 	NSString* cstr = [d stringForKey:@"RichTextEditor_foregroundColor"];
-	if(!cstr) {
+	if(!cstr || [cstr length] <= 0) {
 		cstr = @"000000ff";
 	}
 	return [UIColor rte_colorWithHexString:cstr];
@@ -145,7 +145,7 @@
 - (UIColor*)lastSelectedBackgroundColor {
 	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
 	NSString* cstr = [d stringForKey:@"RichTextEditor_backgroundColor"];
-	if(!cstr) {
+	if(!cstr || [cstr length] <= 0) {
 		cstr = @"00000000";
 	}
 	return [UIColor rte_colorWithHexString:cstr];
@@ -286,7 +286,9 @@
 
 - (void)richTextEditorToolbarDidSelectTextForegroundColor:(UIColor *)color
 {
-	self.lastSelectedForegroundColor = color;
+	if(color) {
+		self.lastSelectedForegroundColor = color;
+	}
 	[self applyAttrubutesToSelectedRange:color forKey:NSForegroundColorAttributeName];
 }
 
