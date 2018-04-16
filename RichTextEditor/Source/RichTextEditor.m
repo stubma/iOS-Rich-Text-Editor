@@ -91,15 +91,11 @@
 	self.toolBar = [[RichTextEditorToolbar alloc] initWithFrame:CGRectMake(0, 0, [self currentScreenBoundsDependOnOrientation].size.width, RICHTEXTEDITOR_TOOLBAR_HEIGHT)
 													   delegate:self
 													 dataSource:self];
-	
+	[self updateToolbarState];
 	self.typingAttributesInProgress = NO;
 	self.defaultIndentationSize = 15;
 	
 	[self setupMenuItems];
-    
-    //If there is text already, then we do want to update the toolbar. Otherwise we don't.
-    if ([self hasText])
-        [self updateToolbarState];
 }
 
 #pragma mark - Public Methods -
@@ -613,6 +609,11 @@
 	if (fontName)
 	{
 		newFont = [UIFont fontWithName:fontName size:newFontSize boldTrait:newBold italicTrait:newItalic];
+		
+		// if can't create font with same style of old font, fallback to name and size only
+		if(!newFont) {
+			newFont = [UIFont fontWithName:fontName size:newFontSize];
+		}
 	}
 	else
 	{
