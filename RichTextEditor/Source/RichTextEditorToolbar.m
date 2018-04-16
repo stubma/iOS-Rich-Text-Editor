@@ -168,6 +168,38 @@
 	
 	NSNumber *existingStrikeThrough = [attributes objectForKey:NSStrikethroughStyleAttributeName];
 	self.btnStrikeThrough.on = (!existingStrikeThrough || existingStrikeThrough.intValue == NSUnderlineStyleNone) ? NO :YES;
+	
+	// foreground icon
+	UIColor* foregroundColor = [attributes objectForKey:NSForegroundColorAttributeName];
+	if(foregroundColor) {
+		UIImage* img = [UIImage imageNamed:@"forecolor"];
+		UIGraphicsBeginImageContext(img.size);
+		CGContextRef context = UIGraphicsGetCurrentContext();
+		CGContextTranslateCTM(context, 0, img.size.height);
+		CGContextScaleCTM(context, 1, -1);
+		CGContextDrawImage(context, CGRectMake(0, 0, img.size.width, img.size.height), img.CGImage);
+		CGContextSetFillColorWithColor(context, foregroundColor.CGColor);
+		CGContextFillRect(context, CGRectMake(2, 2, 16, 3));
+		UIImage* colorImg = UIGraphicsGetImageFromCurrentImageContext();
+		UIGraphicsEndImageContext();
+		[self.btnForegroundColor setImage:colorImg forState:UIControlStateNormal];
+	}
+	
+	// background icon
+	UIColor* backgroundColor = [attributes objectForKey:NSBackgroundColorAttributeName];
+	if(backgroundColor) {
+		UIImage* img = [UIImage imageNamed:@"backcolor"];
+		UIGraphicsBeginImageContext(img.size);
+		CGContextRef context = UIGraphicsGetCurrentContext();
+		CGContextTranslateCTM(context, 0, img.size.height);
+		CGContextScaleCTM(context, 1, -1);
+		CGContextDrawImage(context, CGRectMake(0, 0, img.size.width, img.size.height), img.CGImage);
+		CGContextSetFillColorWithColor(context, backgroundColor.CGColor);
+		CGContextFillRect(context, CGRectMake(2, 2, 12, 12));
+		UIImage* colorImg = UIGraphicsGetImageFromCurrentImageContext();
+		UIGraphicsEndImageContext();
+		[self.btnBackgroundColor setImage:colorImg forState:UIControlStateNormal];
+	}
 }
 
 #pragma mark - IBActions -
