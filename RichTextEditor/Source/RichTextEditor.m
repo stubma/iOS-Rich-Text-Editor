@@ -55,22 +55,22 @@
 
 - (id)init
 {
-    if (self = [super init])
+	if (self = [super init])
 	{
-        [self commonInitialization];
-    }
+		[self commonInitialization];
+	}
 	
-    return self;
+	return self;
 }
 
 - (id)initWithFrame:(CGRect)frame
 {
-    if (self = [super initWithFrame:frame])
+	if (self = [super initWithFrame:frame])
 	{
-        [self commonInitialization];
-    }
+		[self commonInitialization];
+	}
 	
-    return self;
+	return self;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -85,9 +85,9 @@
 
 - (void)commonInitialization
 {
-    self.borderColor = [UIColor lightGrayColor];
-    self.borderWidth = 1.0;
-
+	self.borderColor = [UIColor lightGrayColor];
+	self.borderWidth = 1.0;
+	
 	self.toolBar = [[RichTextEditorToolbar alloc] initWithFrame:CGRectMake(0, 0, [self currentScreenBoundsDependOnOrientation].size.width, RICHTEXTEDITOR_TOOLBAR_HEIGHT)
 													   delegate:self
 													 dataSource:self];
@@ -223,12 +223,12 @@
 
 - (void)selectParagraph:(id)sender
 {
-    if (![self hasText])
+	if (![self hasText])
 		return;
 	
 	NSRange range = [self.attributedText firstParagraphRangeFromTextRange:self.selectedRange];
 	[self setSelectedRange:range];
-
+	
 	[[UIMenuController sharedMenuController] setTargetRect:[self frameOfTextAtRange:self.selectedRange] inView:self];
 	[[UIMenuController sharedMenuController] setMenuVisible:YES animated:YES];
 }
@@ -242,12 +242,12 @@
 
 - (void)setBorderColor:(UIColor *)borderColor
 {
-    self.layer.borderColor = borderColor.CGColor;
+	self.layer.borderColor = borderColor.CGColor;
 }
 
 - (void)setBorderWidth:(CGFloat)borderWidth
 {
-    self.layer.borderWidth = borderWidth;
+	self.layer.borderWidth = borderWidth;
 }
 
 #pragma mark - RichTextEditorToolbarDelegate Methods -
@@ -385,7 +385,7 @@
 
 - (void)richTextEditorToolbarDidSelectBulletPoint
 {
-    // TODO: implement this
+	// TODO: implement this
 }
 
 #pragma mark - Private Methods -
@@ -399,8 +399,8 @@
 	for (UITextSelectionRect *selectionRect in selectionRects)
 	{
 		completeRect = (CGRectIsNull(completeRect))
-			? selectionRect.rect
-			: CGRectUnion(completeRect,selectionRect.rect);
+		? selectionRect.rect
+		: CGRectUnion(completeRect,selectionRect.rect);
 	}
 	
 	return completeRect;
@@ -433,12 +433,13 @@
 	}
 	else
 	{
-		int location = [self offsetFromPosition:self.beginningOfDocument toPosition:self.selectedTextRange.start];
-		
-		if (location == self.text.length)
+		NSInteger location = [self offsetFromPosition:self.beginningOfDocument
+										   toPosition:self.selectedTextRange.start];
+		if (location > 0)
 			location --;
 		
-		[self.toolBar updateStateWithAttributes:[self.attributedText attributesAtIndex:location effectiveRange:nil]];
+		[self.toolBar updateStateWithAttributes:[self.attributedText attributesAtIndex:(NSUInteger)location
+																		effectiveRange:nil]];
 	}
 }
 
@@ -457,25 +458,25 @@
 	// If index at end of string, get attributes starting from previous character
 	if (index == self.attributedText.string.length && [self hasText])
 		--index;
-    
+	
 	// If no text exists get font from typing attributes
-    NSDictionary *dictionary = ([self hasText])
-		? [self.attributedText attributesAtIndex:index effectiveRange:nil]
-		: self.typingAttributes;
-    
-    return [dictionary objectForKey:NSFontAttributeName];
+	NSDictionary *dictionary = ([self hasText])
+	? [self.attributedText attributesAtIndex:index effectiveRange:nil]
+	: self.typingAttributes;
+	
+	return [dictionary objectForKey:NSFontAttributeName];
 }
 
 - (NSDictionary *)dictionaryAtIndex:(NSInteger)index
 {
 	// If index at end of string, get attributes starting from previous character
 	if (index == self.attributedText.string.length && [self hasText])
-        --index;
+		--index;
 	
-    // If no text exists get font from typing attributes
-    return  ([self hasText])
-		? [self.attributedText attributesAtIndex:index effectiveRange:nil]
-		: self.typingAttributes;
+	// If no text exists get font from typing attributes
+	return  ([self hasText])
+	? [self.attributedText attributesAtIndex:index effectiveRange:nil]
+	: self.typingAttributes;
 }
 
 - (void)applyAttributeToTypingAttribute:(id)attribute forKey:(NSString *)key
@@ -492,12 +493,12 @@
 	{
 		NSMutableAttributedString *attributedString = [self.attributedText mutableCopy];
 		
-        // Workaround for when there is only one paragraph,
+		// Workaround for when there is only one paragraph,
 		// sometimes the attributedString is actually longer by one then the displayed text,
 		// and this results in not being able to set to lef align anymore.
-        if (range.length == attributedString.length-1 && range.length == self.text.length)
-            ++range.length;
-        
+		if (range.length == attributedString.length-1 && range.length == self.text.length)
+			++range.length;
+		
 		[attributedString addAttributes:[NSDictionary dictionaryWithObject:attribute forKey:key] range:range];
 		
 		[self setAttributedText:attributedString];
@@ -574,23 +575,47 @@
 	}
 	// If no text is selected apply attributes to typingAttribute
 	else
-	{		
+	{
 		self.typingAttributesInProgress = YES;
 		
+		// create font
 		UIFont *newFont = [self fontwithBoldTrait:isBold
 									  italicTrait:isItalic
 										 fontName:fontName
 										 fontSize:fontSize
 								   fromDictionary:self.typingAttributes];
-		if (newFont) 
-            [self applyAttributeToTypingAttribute:newFont forKey:NSFontAttributeName];
 		
-		// save font size and name
-		if(fontSize) {
-			self.lastSelectedFontSize = [fontSize integerValue];
+		// ask data source if this change is allowed
+		BOOL shouldApply = YES;
+		if(self.dataSource && [self.dataSource respondsToSelector:@selector(shouldApplyFontAttributesWithBoldTrait:italicTrait:fontName:fontSize:toTextAtRange:textAfterApplied:)]) {
+			// insert a zero width space character with new font to evaluate bound size of text
+			// so that we can include last empty line
+			NSMutableAttributedString *attributedString = [self.attributedText mutableCopy];
+			NSAttributedString* placeholder = [[NSAttributedString alloc] initWithString:@"\u200b" attributes:@{NSFontAttributeName: newFont}];
+			[attributedString insertAttributedString:placeholder
+											 atIndex:range.location];
+			
+			// evaluate size
+			shouldApply = [self.dataSource shouldApplyFontAttributesWithBoldTrait:isBold
+																	  italicTrait:isItalic
+																		 fontName:fontName
+																		 fontSize:fontSize
+																	toTextAtRange:range
+																 textAfterApplied:attributedString];
 		}
-		if(fontName) {
-			self.lastSelectedFontName = fontName;
+		
+		// if can apply
+		if(shouldApply) {
+			if (newFont)
+				[self applyAttributeToTypingAttribute:newFont forKey:NSFontAttributeName];
+			
+			// save font size and name
+			if(fontSize) {
+				self.lastSelectedFontSize = [fontSize integerValue];
+			}
+			if(fontName) {
+				self.lastSelectedFontName = fontName;
+			}
 		}
 	}
 	
@@ -625,21 +650,21 @@
 
 - (CGRect)currentScreenBoundsDependOnOrientation
 {
-    CGRect screenBounds = [UIScreen mainScreen].bounds ;
-    CGFloat width = CGRectGetWidth(screenBounds)  ;
-    CGFloat height = CGRectGetHeight(screenBounds) ;
-    UIInterfaceOrientation interfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
+	CGRect screenBounds = [UIScreen mainScreen].bounds ;
+	CGFloat width = CGRectGetWidth(screenBounds)  ;
+	CGFloat height = CGRectGetHeight(screenBounds) ;
+	UIInterfaceOrientation interfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
 	
-    if (UIInterfaceOrientationIsPortrait(interfaceOrientation))
+	if (UIInterfaceOrientationIsPortrait(interfaceOrientation))
 	{
-        screenBounds.size = CGSizeMake(width, height);
-    }
+		screenBounds.size = CGSizeMake(width, height);
+	}
 	else if (UIInterfaceOrientationIsLandscape(interfaceOrientation))
 	{
-        screenBounds.size = CGSizeMake(height, width);
-    }
+		screenBounds.size = CGSizeMake(height, width);
+	}
 	
-    return screenBounds ;
+	return screenBounds ;
 }
 
 #pragma mark - RichTextEditorToolbarDataSource Methods -
@@ -670,10 +695,10 @@
 	{
 		return [self.dataSource presentationStyleForRichTextEditor:self];
 	}
-
+	
 	return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-		? RichTextEditorToolbarPresentationStylePopover
-		: RichTextEditorToolbarPresentationStyleModal;
+	? RichTextEditorToolbarPresentationStylePopover
+	: RichTextEditorToolbarPresentationStyleModal;
 }
 
 - (UIModalPresentationStyle)modalPresentationStyleForRichTextEditorToolbar
@@ -684,8 +709,8 @@
 	}
 	
 	return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-		? UIModalPresentationFormSheet
-		: UIModalPresentationFullScreen;
+	? UIModalPresentationFormSheet
+	: UIModalPresentationFullScreen;
 }
 
 - (UIModalTransitionStyle)modalTransitionStyleForRichTextEditorToolbar
@@ -714,3 +739,4 @@
 }
 
 @end
+
