@@ -646,8 +646,6 @@
 	{
 		[self.delegate richTextEditorToolbarDidSelectTextForegroundColor:color];
 	}
-	
-	[self dismissViewController];
 }
 
 - (void)richTextEditorColorPickerViewControllerDidSelectClose

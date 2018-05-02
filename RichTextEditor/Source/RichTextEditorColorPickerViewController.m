@@ -26,6 +26,14 @@
 // THE SOFTWARE.
 
 #import "RichTextEditorColorPickerViewController.h"
+#import "UIColor+RichTextEditor.h"
+
+@interface RichTextEditorColorPickerViewController ()
+
+@property (nonatomic, assign, readonly) UIColor* lastSelectedForegroundColor;
+@property (nonatomic, assign, readonly) UIColor* lastSelectedBackgroundColor;
+
+@end
 
 @implementation RichTextEditorColorPickerViewController
 
@@ -33,52 +41,38 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
+	[super viewDidLoad];
 	
 	self.view.backgroundColor = [UIColor whiteColor];
 	
-	UIButton *btnClose = [[UIButton alloc] initWithFrame:CGRectMake(5, 5, 60, 30)];
-	[btnClose addTarget:self action:@selector(closeSelected:) forControlEvents:UIControlEventTouchUpInside];
-	[btnClose.titleLabel setFont:[UIFont boldSystemFontOfSize:12]];
-	[btnClose setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-	[btnClose setTitle:NSLocalizedStringFromTable(@"close", @"RichTextEditor", nil)
-			  forState:UIControlStateNormal];
-	[self.view addSubview:btnClose];
+	CGSize contentSize = CGSizeMake(self.view.frame.size.width - 10, 100);
 	
-	UIButton *btnDone = [[UIButton alloc] initWithFrame:CGRectMake(65, 5, 60, 30)];
-	[btnDone addTarget:self action:@selector(doneSelected:) forControlEvents:UIControlEventTouchUpInside];
-	[btnDone.titleLabel setFont:[UIFont boldSystemFontOfSize:12]];
-	[btnDone setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-	[btnDone setTitle:NSLocalizedStringFromTable(@"done", @"RichTextEditor", nil)
-			 forState:UIControlStateNormal];
-	[self.view addSubview:btnDone];
-	
-	self.selectedColorView = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 35 - 5, 5, 35, 30)];
-	self.selectedColorView.backgroundColor = [UIColor blackColor];
+	self.selectedColorView = [[UIView alloc] initWithFrame:CGRectMake(contentSize.width - 30, (contentSize.height - 30) / 2, 35, 30)];
+	self.selectedColorView.backgroundColor = self.action == RichTextEditorColorPickerActionTextForegroudColor ? self.lastSelectedForegroundColor : self.lastSelectedBackgroundColor;
 	self.selectedColorView.layer.borderColor = [UIColor lightGrayColor].CGColor;
 	self.selectedColorView.layer.borderWidth = 1;
 	self.selectedColorView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
 	[self.view addSubview:self.selectedColorView];
 	
-	self.colorsImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"colors.jpg"]];;
-	self.colorsImageView.frame = CGRectMake(2, 40, self.view.frame.size.width-4, self.view.frame.size.height - 40 - 2);
-	self.colorsImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	self.colorsImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"colors.jpg"]];
+	self.colorsImageView.frame = CGRectMake(0, 0, contentSize.width - 5 - self.selectedColorView.frame.size.width, contentSize.height);
 	self.colorsImageView.layer.borderColor = [UIColor lightGrayColor].CGColor;
 	self.colorsImageView.layer.borderWidth = 1;
+	self.colorsImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 	[self.view addSubview:self.colorsImageView];
 	
 	if ([self.dataSource richTextEditorColorPickerViewControllerShouldDisplayToolbar])
 	{
-        CGFloat reservedSizeForStatusBar = (
-                                            UIDevice.currentDevice.systemVersion.floatValue >= 7.0
-                                            && !(   UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad
-                                                 && self.modalPresentationStyle==UIModalPresentationFormSheet
-                                                 )
-                                            ) ? 20.:0.; //Add the size of the status bar for iOS 7, not on iPad presenting modal sheet
-
-        CGFloat toolbarHeight = 44 +reservedSizeForStatusBar;
-
-		UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, toolbarHeight)];
+		CGFloat reservedSizeForStatusBar = (
+											UIDevice.currentDevice.systemVersion.floatValue >= 7.0
+											&& !(   UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad
+												 && self.modalPresentationStyle==UIModalPresentationFormSheet
+												 )
+											) ? 20.:0.; //Add the size of the status bar for iOS 7, not on iPad presenting modal sheet
+		
+		CGFloat toolbarHeight = 44 +reservedSizeForStatusBar;
+		
+		UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, contentSize.width, toolbarHeight)];
 		toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 		[self.view addSubview:toolbar];
 		
@@ -87,29 +81,44 @@
 																						   action:nil];
 		
 		UIBarButtonItem *doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-                                                                                  target:self
-                                                                                  action:@selector(doneSelected:)];
+																				  target:self
+																				  action:@selector(doneSelected:)];
 		
 		UIBarButtonItem *closeItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-                                                                                   target:self
-                                                                                   action:@selector(closeSelected:)];
+																				   target:self
+																				   action:@selector(closeSelected:)];
 		
 		UIBarButtonItem *selectedColorItem = [[UIBarButtonItem alloc] initWithCustomView:self.selectedColorView];
 		
 		[toolbar setItems:@[closeItem, flexibleSpaceItem, selectedColorItem, doneItem]];
 		[self.view addSubview:toolbar];
 		
-		self.colorsImageView.frame = CGRectMake(2, toolbarHeight+2, self.view.frame.size.width-4, self.view.frame.size.height - (toolbarHeight+4));
+		self.colorsImageView.frame = CGRectMake(2, toolbarHeight+2, contentSize.width-4, contentSize.height - (toolbarHeight+4));
 	}
 	
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
-    
-    self.preferredContentSize = CGSizeMake(360, 60);
+	self.preferredContentSize = contentSize;
 #else
-    
-	self.contentSizeForViewInPopover = CGSizeMake(360, 60);
+	self.contentSizeForViewInPopover = contentSize;
 #endif
+}
 
+- (UIColor*)lastSelectedForegroundColor {
+	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
+	NSString* cstr = [d stringForKey:@"RichTextEditor_foregroundColor"];
+	if(!cstr || [cstr length] <= 0) {
+		cstr = @"000000ff";
+	}
+	return [UIColor rte_colorWithHexString:cstr];
+}
+
+- (UIColor*)lastSelectedBackgroundColor {
+	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
+	NSString* cstr = [d stringForKey:@"RichTextEditor_backgroundColor"];
+	if(!cstr || [cstr length] <= 0) {
+		cstr = @"00000000";
+	}
+	return [UIColor rte_colorWithHexString:cstr];
 }
 
 #pragma mark - Private Methods -
@@ -137,12 +146,15 @@
 {
 	CGPoint locationPoint = [[touches anyObject] locationInView:self.colorsImageView];
 	[self populateColorsForPoint:locationPoint];
+	[self doneSelected:nil];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
 	CGPoint locationPoint = [[touches anyObject] locationInView:self.colorsImageView];
 	[self populateColorsForPoint:locationPoint];
+	[self doneSelected:nil];
 }
 
 @end
+
