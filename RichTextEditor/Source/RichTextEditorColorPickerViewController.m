@@ -104,10 +104,10 @@
 	
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
     
-    self.preferredContentSize = CGSizeMake(300, 240);
+    self.preferredContentSize = CGSizeMake(360, 60);
 #else
     
-	self.contentSizeForViewInPopover = CGSizeMake(300, 240);
+	self.contentSizeForViewInPopover = CGSizeMake(360, 60);
 #endif
 
 }
