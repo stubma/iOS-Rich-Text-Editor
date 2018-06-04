@@ -250,19 +250,29 @@
 
 - (void)fontSizeSelected:(UIButton *)sender
 {
-	RichTextEditorFontSizePickerViewController *fontSizePicker = [[RichTextEditorFontSizePickerViewController alloc] init];
-	fontSizePicker.delegate = self;
-	fontSizePicker.dataSource = self;
-	[self presentViewController:fontSizePicker fromView:sender];
+	if(self.popover && [[self.popover contentViewController] isKindOfClass:RichTextEditorFontSizePickerViewController.class]) {
+		[self.popover dismissPopoverAnimated:YES];
+		self.popover = nil;
+	} else {
+		RichTextEditorFontSizePickerViewController *fontSizePicker = [[RichTextEditorFontSizePickerViewController alloc] init];
+		fontSizePicker.delegate = self;
+		fontSizePicker.dataSource = self;
+		[self presentViewController:fontSizePicker fromView:sender];
+	}
 }
 
 - (void)fontSelected:(UIButton *)sender
 {
-	RichTextEditorFontPickerViewController *fontPicker= [[RichTextEditorFontPickerViewController alloc] init];
-	fontPicker.fontNames = [self.dataSource fontFamilySelectionForRichTextEditorToolbar];
-	fontPicker.delegate = self;
-	fontPicker.dataSource = self;
-	[self presentViewController:fontPicker fromView:sender];
+	if(self.popover && [[self.popover contentViewController] isKindOfClass:RichTextEditorFontPickerViewController.class]) {
+		[self.popover dismissPopoverAnimated:YES];
+		self.popover = nil;
+	} else {
+		RichTextEditorFontPickerViewController *fontPicker= [[RichTextEditorFontPickerViewController alloc] init];
+		fontPicker.fontNames = [self.dataSource fontFamilySelectionForRichTextEditorToolbar];
+		fontPicker.delegate = self;
+		fontPicker.dataSource = self;
+		[self presentViewController:fontPicker fromView:sender];
+	}
 }
 
 - (void)textBackgroundColorSelected:(UIButton *)sender
