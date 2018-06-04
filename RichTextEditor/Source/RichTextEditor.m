@@ -643,6 +643,9 @@
 	else
 	{
 		newFont = [font fontWithBoldTrait:newBold italicTrait:newItalic andSize:newFontSize];
+		
+		// if can't create font with style, fallback to old font
+		newFont = font;
 	}
 	
 	return newFont;
