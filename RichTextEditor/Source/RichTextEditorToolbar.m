@@ -263,20 +263,34 @@
 
 - (void)textBackgroundColorSelected:(UIButton *)sender
 {
-	RichTextEditorColorPickerViewController *colorPicker = [[RichTextEditorColorPickerViewController alloc] init];
-	colorPicker.action = RichTextEditorColorPickerActionTextBackgroundColor;
-	colorPicker.delegate = self;
-	colorPicker.dataSource = self;
-	[self presentViewController:colorPicker fromView:sender];
+	// if background popover is opened, dismiss it, otherwise show new popover
+	if(self.popover && [[self.popover contentViewController] isKindOfClass:RichTextEditorColorPickerViewController.class] &&
+	   ((RichTextEditorColorPickerViewController*)[self.popover contentViewController]).action == RichTextEditorColorPickerActionTextBackgroundColor) {
+		[self.popover dismissPopoverAnimated:YES];
+		self.popover = nil;
+	} else {
+		RichTextEditorColorPickerViewController *colorPicker = [[RichTextEditorColorPickerViewController alloc] init];
+		colorPicker.action = RichTextEditorColorPickerActionTextBackgroundColor;
+		colorPicker.delegate = self;
+		colorPicker.dataSource = self;
+		[self presentViewController:colorPicker fromView:sender];
+	}
 }
 
 - (void)textForegroundColorSelected:(UIButton *)sender
 {
-	RichTextEditorColorPickerViewController *colorPicker = [[RichTextEditorColorPickerViewController alloc] init];
-	colorPicker.action = RichTextEditorColorPickerActionTextForegroudColor;
-	colorPicker.delegate = self;
-	colorPicker.dataSource = self;
-	[self presentViewController:colorPicker fromView:sender];
+	// if foreground popover is opened, dismiss it, otherwise show new popover
+	if(self.popover && [[self.popover contentViewController] isKindOfClass:RichTextEditorColorPickerViewController.class] &&
+	   ((RichTextEditorColorPickerViewController*)[self.popover contentViewController]).action == RichTextEditorColorPickerActionTextForegroudColor) {
+		[self.popover dismissPopoverAnimated:YES];
+		self.popover = nil;
+	} else {
+		RichTextEditorColorPickerViewController *colorPicker = [[RichTextEditorColorPickerViewController alloc] init];
+		colorPicker.action = RichTextEditorColorPickerActionTextForegroudColor;
+		colorPicker.delegate = self;
+		colorPicker.dataSource = self;
+		[self presentViewController:colorPicker fromView:sender];
+	}
 }
 
 - (void)textAlignmentSelected:(UIButton *)sender
