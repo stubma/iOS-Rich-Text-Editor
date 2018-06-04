@@ -332,6 +332,28 @@
 		lastAddedView = separatorView;
 	}
 	
+	// Background color
+	if (features & RichTextEditorFeatureTextBackgroundColor || features & RichTextEditorFeatureAll)
+	{
+		[self addView:self.btnBackgroundColor afterView:lastAddedView withSpacing:YES];
+		lastAddedView = self.btnBackgroundColor;
+	}
+	
+	// Text color
+	if (features & RichTextEditorFeatureTextForegroundColor || features & RichTextEditorFeatureAll)
+	{
+		[self addView:self.btnForegroundColor afterView:lastAddedView withSpacing:YES];
+		lastAddedView = self.btnForegroundColor;
+	}
+	
+	// Separator view after color section
+	if (features & RichTextEditorFeatureTextBackgroundColor || features & RichTextEditorFeatureTextForegroundColor || features & RichTextEditorFeatureAll)
+	{
+		UIView *separatorView = [self separatorView];
+		[self addView:separatorView afterView:lastAddedView withSpacing:YES];
+		lastAddedView = separatorView;
+	}
+	
 	// Bold
 	if (features & RichTextEditorFeatureBold || features & RichTextEditorFeatureAll)
 	{
@@ -421,28 +443,6 @@
 	
 	// Separator view after Indentation
 	if (features & RichTextEditorFeatureParagraphIndentation || features & RichTextEditorFeatureParagraphFirstLineIndentation || features & RichTextEditorFeatureAll)
-	{
-		UIView *separatorView = [self separatorView];
-		[self addView:separatorView afterView:lastAddedView withSpacing:YES];
-		lastAddedView = separatorView;
-	}
-	
-	// Background color
-	if (features & RichTextEditorFeatureTextBackgroundColor || features & RichTextEditorFeatureAll)
-	{
-		[self addView:self.btnBackgroundColor afterView:lastAddedView withSpacing:YES];
-		lastAddedView = self.btnBackgroundColor;
-	}
-	
-	// Text color
-	if (features & RichTextEditorFeatureTextForegroundColor || features & RichTextEditorFeatureAll)
-	{
-		[self addView:self.btnForegroundColor afterView:lastAddedView withSpacing:YES];
-		lastAddedView = self.btnForegroundColor;
-	}
-	
-	// Separator view after color section
-	if (features & RichTextEditorFeatureTextBackgroundColor || features & RichTextEditorFeatureTextForegroundColor || features & RichTextEditorFeatureAll)
 	{
 		UIView *separatorView = [self separatorView];
 		[self addView:separatorView afterView:lastAddedView withSpacing:YES];
