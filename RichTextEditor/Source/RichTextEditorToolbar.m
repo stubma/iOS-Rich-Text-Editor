@@ -132,6 +132,10 @@
 	[self.btnFontSize setTitle:[NSString stringWithFormat:@"%.f", font.pointSize] forState:UIControlStateNormal];
 	[self.btnFont setTitle:font.familyName forState:UIControlStateNormal];
 	
+	bool supportBold = [font fontWithBoldTrait:true andItalicTrait:false] != nil;
+	bool supportItalic = [font fontWithBoldTrait:false andItalicTrait:true] != nil;
+	self.btnBold.enabled = supportBold;
+	self.btnItalic.enabled = supportItalic;
 	self.btnBold.on = [font isBold];
 	self.btnItalic.on = [font isItalic];
 	
@@ -550,6 +554,13 @@
 	[button.titleLabel setTextColor:[UIColor blackColor]];
 	[button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 	[button setImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
+	
+	// set disabled image
+	NSString* name = [NSString stringWithFormat:@"%@_disabled", image];
+	UIImage* disabledImg = [UIImage imageNamed:name];
+	if(disabledImg) {
+		[button setImage:disabledImg forState:UIControlStateDisabled];
+	}
 	
 	return button;
 }

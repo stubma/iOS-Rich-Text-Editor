@@ -84,6 +84,8 @@
 		1AFAED8617C804AB00E450B0 /* numlist@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFAED8417C804AB00E450B0 /* numlist@2x.png */; };
 		1AFAED8717C804AB00E450B0 /* bullist@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFAED8517C804AB00E450B0 /* bullist@2x.png */; };
 		1AFAED8917C80FC600E450B0 /* dropDownTriangle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFAED8817C80FC600E450B0 /* dropDownTriangle@2x.png */; };
+		921432EA20C515530027D707 /* bold_disabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 921432E920C515530027D707 /* bold_disabled@2x.png */; };
+		921432EC20C5155A0027D707 /* italic_disabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 921432EB20C5155A0027D707 /* italic_disabled@2x.png */; };
 		924245E9207F22F400BD6988 /* RichTextEditor.strings in Resources */ = {isa = PBXBuildFile; fileRef = 924245EB207F22F400BD6988 /* RichTextEditor.strings */; };
 		92C6552720806E7300F111E4 /* UIColor+RichTextEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C6552620806E7300F111E4 /* UIColor+RichTextEditor.m */; };
 /* End PBXBuildFile section */
@@ -197,6 +199,8 @@
 		1AFAED8417C804AB00E450B0 /* numlist@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "numlist@2x.png"; sourceTree = "<group>"; };
 		1AFAED8517C804AB00E450B0 /* bullist@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bullist@2x.png"; sourceTree = "<group>"; };
 		1AFAED8817C80FC600E450B0 /* dropDownTriangle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropDownTriangle@2x.png"; sourceTree = "<group>"; };
+		921432E920C515530027D707 /* bold_disabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bold_disabled@2x.png"; sourceTree = "<group>"; };
+		921432EB20C5155A0027D707 /* italic_disabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "italic_disabled@2x.png"; sourceTree = "<group>"; };
 		924245EA207F22F400BD6988 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/RichTextEditor.strings; sourceTree = "<group>"; };
 		924245EC207F231F00BD6988 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/RichTextEditor.strings"; sourceTree = "<group>"; };
 		92424628207F3B6200BD6988 /* iOS-Rich-Text-Editor.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "iOS-Rich-Text-Editor.podspec"; sourceTree = SOURCE_ROOT; };
@@ -257,6 +261,7 @@
 			children = (
 				15C4133317A48C2C0073D047 /* buttons */,
 				15C412F217A4444B0073D047 /* backcolor.png */,
+				921432E920C515530027D707 /* bold_disabled@2x.png */,
 				1AFAED7117C7F9CA00E450B0 /* bold@2x.png */,
 				1AFAED8517C804AB00E450B0 /* bullist@2x.png */,
 				15C412F517A4444B0073D047 /* code.png */,
@@ -266,6 +271,7 @@
 				15C412F917A4444B0073D047 /* forecolor.png */,
 				15C412FA17A4444B0073D047 /* image.png */,
 				1AFAED7E17C802B200E450B0 /* indent@2x.png */,
+				921432EB20C5155A0027D707 /* italic_disabled@2x.png */,
 				1AFAED6F17C7F9CA00E450B0 /* italic@2x.png */,
 				1AFAED7A17C8022000E450B0 /* justifycenter@2x.png */,
 				1AFAED7817C8022000E450B0 /* justifyfull@2x.png */,
@@ -518,9 +524,11 @@
 				158389251735A5D7006DE713 /* Default.png in Resources */,
 				153F9597179F9953005B2487 /* popoverArrowUp@2x.png in Resources */,
 				153F9592179F9953005B2487 /* popoverArrowLeftSimple.png in Resources */,
+				921432EC20C5155A0027D707 /* italic_disabled@2x.png in Resources */,
 				15BFE3EB17E4D01100D89153 /* firstLineIndent@2x.png in Resources */,
 				158389271735A5D7006DE713 /* Default@2x.png in Resources */,
 				153F9594179F9953005B2487 /* popoverArrowRight@2x.png in Resources */,
+				921432EA20C515530027D707 /* bold_disabled@2x.png in Resources */,
 				924245E9207F22F400BD6988 /* RichTextEditor.strings in Resources */,
 				158389291735A5D7006DE713 /* Default-568h@2x.png in Resources */,
 				1583892C1735A5D7006DE713 /* MainStoryboard_iPhone.storyboard in Resources */,
