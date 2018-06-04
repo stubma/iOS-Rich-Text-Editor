@@ -38,7 +38,7 @@
 
 #define ITEM_SEPARATOR_SPACE 5
 #define ITEM_TOP_AND_BOTTOM_BORDER 5
-#define ITEM_WITH 40
+#define ITEM_WIDTH 40
 
 @interface RichTextEditorToolbar() <RichTextEditorFontSizePickerViewControllerDelegate, RichTextEditorFontSizePickerViewControllerDataSource, RichTextEditorFontPickerViewControllerDelegate, RichTextEditorFontPickerViewControllerDataSource, RichTextEditorColorPickerViewControllerDataSource, RichTextEditorColorPickerViewControllerDelegate>
 @property (nonatomic, strong) id <RichTextEditorPopover> popover;
@@ -556,7 +556,7 @@
 
 - (RichTextEditorToggleButton *)buttonWithImageNamed:(NSString *)image andSelector:(SEL)selector
 {
-	return [self buttonWithImageNamed:image width:ITEM_WITH andSelector:selector];
+	return [self buttonWithImageNamed:image width:ITEM_WIDTH andSelector:selector];
 }
 
 - (UIView *)separatorView
