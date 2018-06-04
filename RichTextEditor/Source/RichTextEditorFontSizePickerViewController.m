@@ -75,10 +75,10 @@
 	
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
     
-    self.preferredContentSize = CGSizeMake(100, 400);
+    self.preferredContentSize = CGSizeMake(200, 400);
 #else
     
-	self.contentSizeForViewInPopover = CGSizeMake(100, 400);
+	self.contentSizeForViewInPopover = CGSizeMake(200, 400);
 #endif
 
 }
@@ -109,6 +109,7 @@
 	
 	cell.textLabel.text = fontSize.stringValue;
 	cell.textLabel.font = [UIFont boldSystemFontOfSize:fontSize.intValue];
+	cell.textLabel.adjustsFontSizeToFitWidth = true;
 	return cell;
 }
 
