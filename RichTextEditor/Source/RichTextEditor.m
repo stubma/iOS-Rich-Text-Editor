@@ -285,6 +285,11 @@
 - (void)richTextEditorToolbarDidSelectTextForegroundColor:(UIColor *)color
 {
 	if(color) {
+		CGFloat r, g, b, a;
+		[color getRed:&r green:&g blue:&b alpha:&a];
+		if(a <= 0.001) {
+			color = [UIColor whiteColor];
+		}
 		self.lastSelectedForegroundColor = color;
 	}
 	[self applyAttrubutesToSelectedRange:color forKey:NSForegroundColorAttributeName];
