@@ -536,19 +536,32 @@
 	{
 		NSMutableAttributedString *attributedString = [self.attributedText mutableCopy];
 		
+		__block NSString* newFontName = fontName;
 		[attributedString beginEditing];
 		[attributedString enumerateAttributesInRange:range
-											 options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired
+											 options:0
 										  usingBlock:^(NSDictionary *dictionary, NSRange range, BOOL *stop){
+											  // WORKAROUND: pingfang font has error when set font size
+											  // we have to change pingfang font to other font to make
+											  UIFont* oldFont = dictionary[NSFontAttributeName];
+											  if(oldFont && ([oldFont.familyName hasPrefix:@"PingFang"] || [oldFont.fontName hasPrefix:@"PingFang"])) {
+												  if(!newFontName || [newFontName hasPrefix:@"PingFang"]) {
+													  newFontName = @"Helvetica";
+												  }
+											  }
 											  
+											  // create new font
 											  UIFont *newFont = [self fontwithBoldTrait:isBold
 																			italicTrait:isItalic
-																			   fontName:fontName
+																			   fontName:newFontName
 																			   fontSize:fontSize
 																		 fromDictionary:dictionary];
 											  
-											  if (newFont)
-												  [attributedString addAttributes:[NSDictionary dictionaryWithObject:newFont forKey:NSFontAttributeName] range:range];
+											  // update attribute
+											  if (newFont) {
+												  [attributedString addAttributes:@{NSFontAttributeName: newFont}
+																			range:range];
+											  }
 										  }];
 		[attributedString endEditing];
 		
@@ -557,7 +570,7 @@
 		if(self.dataSource && [self.dataSource respondsToSelector:@selector(shouldApplyFontAttributesWithBoldTrait:italicTrait:fontName:fontSize:toTextAtRange:textAfterApplied:)]) {
 			shouldApply = [self.dataSource shouldApplyFontAttributesWithBoldTrait:isBold
 																	  italicTrait:isItalic
-																		 fontName:fontName
+																		 fontName:newFontName
 																		 fontSize:fontSize
 																	toTextAtRange:range
 																 textAfterApplied:attributedString];
