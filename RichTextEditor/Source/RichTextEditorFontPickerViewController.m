@@ -84,6 +84,19 @@
 
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	
+	// show last selected font name
+	NSInteger idx = [self.fontNames indexOfObject:self.dataSource.lastSelectedFontName];
+	if(idx != -1) {
+		NSIndexPath* idxPath = [NSIndexPath indexPathForRow:idx inSection:0];
+		[self.tableview scrollToRowAtIndexPath:idxPath
+							  atScrollPosition:UITableViewScrollPositionMiddle
+									  animated:false];
+	}
+}
+
 #pragma mark - IBActions -
 
 - (void)closeSelected:(id)sender

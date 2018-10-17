@@ -35,6 +35,7 @@
 @protocol RichTextEditorFontSizePickerViewControllerDataSource <NSObject>
 - (BOOL)richTextEditorFontSizePickerViewControllerShouldDisplayToolbar;
 - (NSArray *)richTextEditorFontSizePickerViewControllerCustomFontSizesForSelection;
+- (NSInteger)lastSelectedFontSize;
 @end
 
 @interface RichTextEditorFontSizePickerViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
