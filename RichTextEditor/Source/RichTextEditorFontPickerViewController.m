@@ -41,36 +41,7 @@
 		self.fontNames = [[UIFont familyNames] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
     }
 	
-	if ([self.dataSource richTextEditorFontPickerViewControllerShouldDisplayToolbar])
-	{
-        CGFloat reservedSizeForStatusBar = (
-                                               UIDevice.currentDevice.systemVersion.floatValue >= 7.0
-                                            && !(   UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad
-                                                 && self.modalPresentationStyle==UIModalPresentationFormSheet
-                                                 )
-                                            ) ? 20.:0.; //Add the size of the status bar for iOS 7, not on iPad presenting modal sheet
-        
-        CGFloat toolbarHeight = 44 +reservedSizeForStatusBar;
-        
-		UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, toolbarHeight)];
-		toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-		[self.view addSubview:toolbar];
-		
-		UIBarButtonItem *flexibleSpaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-																						   target:nil
-																						   action:nil];
-		
-		UIBarButtonItem *closeItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-                                                                                   target:self
-                                                                                   action:@selector(closeSelected:)];
-		[toolbar setItems:@[closeItem, flexibleSpaceItem]];
-		
-		self.tableview.frame = CGRectMake(0, toolbarHeight, self.view.frame.size.width, self.view.frame.size.height - toolbarHeight);
-	}
-	else
-	{
-		self.tableview.frame = self.view.bounds;
-	}
+	self.tableview.frame = self.view.bounds;
 	
 	[self.view addSubview:self.tableview];
 	

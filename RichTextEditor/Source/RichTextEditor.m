@@ -712,40 +712,6 @@
 	return nil;
 }
 
-- (RichTextEditorToolbarPresentationStyle)presentationStyleForRichTextEditorToolbar
-{
-	if (self.dataSource && [self.dataSource respondsToSelector:@selector(presentationStyleForRichTextEditor:)])
-	{
-		return [self.dataSource presentationStyleForRichTextEditor:self];
-	}
-	
-	return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-	? RichTextEditorToolbarPresentationStylePopover
-	: RichTextEditorToolbarPresentationStyleModal;
-}
-
-- (UIModalPresentationStyle)modalPresentationStyleForRichTextEditorToolbar
-{
-	if (self.dataSource && [self.dataSource respondsToSelector:@selector(modalPresentationStyleForRichTextEditor:)])
-	{
-		return [self.dataSource modalPresentationStyleForRichTextEditor:self];
-	}
-	
-	return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-	? UIModalPresentationFormSheet
-	: UIModalPresentationFullScreen;
-}
-
-- (UIModalTransitionStyle)modalTransitionStyleForRichTextEditorToolbar
-{
-	if (self.dataSource && [self.dataSource respondsToSelector:@selector(modalTransitionStyleForRichTextEditor:)])
-	{
-		return [self.dataSource modalTransitionStyleForRichTextEditor:self];
-	}
-	
-	return UIModalTransitionStyleCoverVertical;
-}
-
 - (RichTextEditorFeature)featuresEnabledForRichTextEditorToolbar
 {
 	if (self.dataSource && [self.dataSource respondsToSelector:@selector(featuresEnabledForRichTextEditor:)])

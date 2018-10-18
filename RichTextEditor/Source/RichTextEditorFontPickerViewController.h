@@ -34,7 +34,6 @@
 
 @protocol RichTextEditorFontPickerViewControllerDataSource <NSObject>
 - (NSArray *)richTextEditorFontPickerViewControllerCustomFontFamilyNamesForSelection;
-- (BOOL)richTextEditorFontPickerViewControllerShouldDisplayToolbar;
 - (NSString*)lastSelectedFontName;
 @end
 

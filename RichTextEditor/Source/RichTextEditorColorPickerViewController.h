@@ -40,7 +40,6 @@ typedef enum {
 @end
 
 @protocol RichTextEditorColorPickerViewControllerDataSource <NSObject>
-- (BOOL)richTextEditorColorPickerViewControllerShouldDisplayToolbar;
 @end
 
 @interface RichTextEditorColorPickerViewController : UIViewController

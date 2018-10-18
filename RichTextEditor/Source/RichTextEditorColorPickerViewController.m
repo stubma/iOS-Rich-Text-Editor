@@ -61,41 +61,6 @@
 	self.colorsImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 	[self.view addSubview:self.colorsImageView];
 	
-	if ([self.dataSource richTextEditorColorPickerViewControllerShouldDisplayToolbar])
-	{
-		CGFloat reservedSizeForStatusBar = (
-											UIDevice.currentDevice.systemVersion.floatValue >= 7.0
-											&& !(   UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad
-												 && self.modalPresentationStyle==UIModalPresentationFormSheet
-												 )
-											) ? 20.:0.; //Add the size of the status bar for iOS 7, not on iPad presenting modal sheet
-		
-		CGFloat toolbarHeight = 44 +reservedSizeForStatusBar;
-		
-		UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, contentSize.width, toolbarHeight)];
-		toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-		[self.view addSubview:toolbar];
-		
-		UIBarButtonItem *flexibleSpaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-																						   target:nil
-																						   action:nil];
-		
-		UIBarButtonItem *doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-																				  target:self
-																				  action:@selector(doneSelected:)];
-		
-		UIBarButtonItem *closeItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-																				   target:self
-																				   action:@selector(closeSelected:)];
-		
-		UIBarButtonItem *selectedColorItem = [[UIBarButtonItem alloc] initWithCustomView:self.selectedColorView];
-		
-		[toolbar setItems:@[closeItem, flexibleSpaceItem, selectedColorItem, doneItem]];
-		[self.view addSubview:toolbar];
-		
-		self.colorsImageView.frame = CGRectMake(2, toolbarHeight+2, contentSize.width-4, contentSize.height - (toolbarHeight+4));
-	}
-	
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
 	self.preferredContentSize = contentSize;
 #else

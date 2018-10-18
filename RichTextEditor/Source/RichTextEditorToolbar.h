@@ -28,11 +28,6 @@
 #import <UIKit/UIKit.h>
 
 typedef enum{
-	RichTextEditorToolbarPresentationStyleModal,
-	RichTextEditorToolbarPresentationStylePopover
-}RichTextEditorToolbarPresentationStyle;
-
-typedef enum{
 	ParagraphIndentationIncrease,
 	ParagraphIndentationDecrease
 }ParagraphIndentation;
@@ -74,9 +69,6 @@ typedef enum{
 @protocol RichTextEditorToolbarDataSource <NSObject>
 - (NSArray *)fontSizeSelectionForRichTextEditorToolbar;
 - (NSArray *)fontFamilySelectionForRichTextEditorToolbar;
-- (RichTextEditorToolbarPresentationStyle)presentationStyleForRichTextEditorToolbar;
-- (UIModalPresentationStyle)modalPresentationStyleForRichTextEditorToolbar;
-- (UIModalTransitionStyle)modalTransitionStyleForRichTextEditorToolbar;
 - (UIViewController *)firsAvailableViewControllerForRichTextEditorToolbar;
 - (RichTextEditorFeature)featuresEnabledForRichTextEditorToolbar;
 @end
