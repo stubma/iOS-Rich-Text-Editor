@@ -27,12 +27,19 @@
 
 #import "RichTextEditorFontSizePickerViewController.h"
 
+@interface RichTextEditorFontSizePickerViewController ()
+
+@property (nonatomic, assign) int maxVisibleFontSize;
+
+@end
+
 @implementation RichTextEditorFontSizePickerViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	
+	self.maxVisibleFontSize = 0;
 	NSArray *customizedFontSizes = [self.dataSource richTextEditorFontSizePickerViewControllerCustomFontSizesForSelection];
 	
 	if (customizedFontSizes)
@@ -94,6 +101,8 @@
 	cell.textLabel.text = fontSize.stringValue;
 	cell.textLabel.font = [UIFont boldSystemFontOfSize:fontSize.intValue];
 	cell.textLabel.adjustsFontSizeToFitWidth = true;
+	cell.textLabel.numberOfLines = 1;
+	cell.textLabel.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
 	return cell;
 }
 
@@ -101,6 +110,30 @@
 {
 	NSNumber *fontSize = [self.fontSizes objectAtIndex:indexPath.row];
 	[self.delegate richTextEditorFontSizePickerViewControllerDidSelectFontSize:fontSize];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	int fontSize = [self.fontSizes[indexPath.row] intValue];
+	NSString* str = [NSString stringWithFormat:@"%d", fontSize];
+	if(self.maxVisibleFontSize > 0 && fontSize > self.maxVisibleFontSize) {
+		fontSize = self.maxVisibleFontSize;
+	}
+	CGRect rect = [str boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
+									options:NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin
+								 attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:fontSize]}
+									context:nil];
+	if(rect.size.width < tableView.bounds.size.width) {
+		return MAX(32, rect.size.height);
+	} else {
+		if(self.maxVisibleFontSize == 0) {
+			self.maxVisibleFontSize = fontSize;
+		}
+		rect = [str boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
+								 options:NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin
+							  attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:self.maxVisibleFontSize]}
+								 context:nil];
+		return rect.size.height;
+	}
 }
 
 #pragma mark - Setter & Getter -
