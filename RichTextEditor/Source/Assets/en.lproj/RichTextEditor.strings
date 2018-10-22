@@ -1,2 +1,3 @@
 close = "Close";
 done = "Done";
+placeholder.custom.font.size = "Custom Size";

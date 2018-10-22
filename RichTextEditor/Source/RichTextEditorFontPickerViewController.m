@@ -42,17 +42,14 @@
     }
 	
 	self.tableview.frame = self.view.bounds;
-	
+	self.tableview.separatorInset = UIEdgeInsetsZero;
 	[self.view addSubview:self.tableview];
 	
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
-    
-    self.preferredContentSize = CGSizeMake(250, 400);
+    self.preferredContentSize = CGSizeMake(250, 360);
 #else
-    
-	self.contentSizeForViewInPopover = CGSizeMake(250, 400);
+	self.contentSizeForViewInPopover = CGSizeMake(250, 360);
 #endif
-
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -66,6 +63,13 @@
 							  atScrollPosition:UITableViewScrollPositionMiddle
 									  animated:false];
 	}
+}
+
+- (void)viewDidLayoutSubviews {
+	[super viewDidLayoutSubviews];
+	
+	// adjust frame
+	self.tableview.frame = CGRectMake(0, 36, self.view.bounds.size.width, self.view.bounds.size.height - 36);
 }
 
 #pragma mark - IBActions -

@@ -27,9 +27,10 @@
 
 #import "RichTextEditorFontSizePickerViewController.h"
 
-@interface RichTextEditorFontSizePickerViewController ()
+@interface RichTextEditorFontSizePickerViewController () <UITextFieldDelegate>
 
 @property (nonatomic, assign) int maxVisibleFontSize;
+@property (nonatomic, strong) UITextField* customFontSizeInput;
 
 @end
 
@@ -46,19 +47,24 @@
 		self.fontSizes = customizedFontSizes;
 	else
 		self.fontSizes = @[@8, @10, @12, @14, @16, @18, @20, @22, @24, @26, @28, @30];
+
+	self.customFontSizeInput = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 36)];
+	[self.view addSubview:self.customFontSizeInput];
+	self.customFontSizeInput.placeholder = NSLocalizedStringFromTable(@"placeholder.custom.font.size", @"RichTextEditor", nil);
+	self.customFontSizeInput.borderStyle = UITextBorderStyleLine;
+	self.customFontSizeInput.returnKeyType = UIReturnKeyDone;
+	self.customFontSizeInput.keyboardType = UIKeyboardTypeNumberPad;
+	self.customFontSizeInput.delegate = self;
 	
-	self.tableview.frame = self.view.bounds;
-	
+	self.tableview.frame = CGRectMake(0, 36, self.view.bounds.size.width, self.view.bounds.size.height - 36);
+	self.tableview.separatorInset = UIEdgeInsetsZero;
 	[self.view addSubview:self.tableview];
 	
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
-    
-    self.preferredContentSize = CGSizeMake(200, 400);
+    self.preferredContentSize = CGSizeMake(200, 360);
 #else
-    
-	self.contentSizeForViewInPopover = CGSizeMake(200, 400);
+	self.contentSizeForViewInPopover = CGSizeMake(200, 360);
 #endif
-
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -74,11 +80,33 @@
 	}
 }
 
+- (void)viewDidLayoutSubviews {
+	[super viewDidLayoutSubviews];
+	
+	// adjust frame
+	self.customFontSizeInput.frame = CGRectMake(0, 0, self.view.bounds.size.width, 36);
+	self.tableview.frame = CGRectMake(0, 36, self.view.bounds.size.width, self.view.bounds.size.height - 36);
+}
+
 #pragma mark - IBActions -
 
 - (void)closeSelected:(id)sender
 {
 	[self.delegate richTextEditorFontSizePickerViewControllerDidSelectClose];
+}
+
+#pragma mark UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+	// validate font size
+	int fontSize = [textField.text intValue];
+	if(fontSize < [self.fontSizes[0] intValue] || fontSize > [self.fontSizes[self.fontSizes.count - 1] intValue]) {
+		return false;
+	}
+	
+	// set font sizes
+	[self.delegate richTextEditorFontSizePickerViewControllerDidSelectFontSize:@(fontSize)];
+	return true;
 }
 
 #pragma mark - UITableView Delegate & Datasrouce -

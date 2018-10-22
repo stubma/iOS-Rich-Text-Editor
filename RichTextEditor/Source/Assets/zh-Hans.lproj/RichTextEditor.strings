@@ -1,2 +1,3 @@
 close = "关闭";
 done = "完成";
+placeholder.custom.font.size = "自定义大小";
