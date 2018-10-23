@@ -31,6 +31,9 @@
 
 @property (nonatomic, assign) int maxVisibleFontSize;
 @property (nonatomic, strong) UITextField* customFontSizeInput;
+@property (nonatomic, strong) UIButton* okButton;
+
+- (void)onCustomFontSizeOKClicked:(id)sender;
 
 @end
 
@@ -48,15 +51,38 @@
 	else
 		self.fontSizes = @[@8, @10, @12, @14, @16, @18, @20, @22, @24, @26, @28, @30];
 
-	self.customFontSizeInput = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 36)];
+	NSString* lan = [[NSLocale preferredLanguages] objectAtIndex:0];
+	if(!lan) {
+		lan = @"en";
+	}
+	BOOL isChinese = [@"zh" isEqualToString:lan];
+	NSString* lprojDir = isChinese ? @"zh-Hans.lproj" : @"en.lproj";
+	NSString* path = [[NSBundle mainBundle] pathForResource:@"RichTextEditor" ofType:@"strings" inDirectory:lprojDir];
+	NSDictionary *localizedDict = [[NSDictionary alloc] initWithContentsOfFile:path];
+	self.customFontSizeInput = [UITextField new];
 	[self.view addSubview:self.customFontSizeInput];
-	self.customFontSizeInput.placeholder = NSLocalizedStringFromTable(@"placeholder.custom.font.size", @"RichTextEditor", nil);
-	self.customFontSizeInput.borderStyle = UITextBorderStyleLine;
+	self.customFontSizeInput.placeholder = localizedDict[@"placeholder.custom.font.size"];
+	self.customFontSizeInput.layer.borderWidth = 1;
+	self.customFontSizeInput.layer.borderColor = [UIColor colorWithRed:0xe1 / 255.0f
+																 green:0xe1 / 255.0f
+																  blue:0xe1 / 255.0f
+																 alpha:1].CGColor;
 	self.customFontSizeInput.returnKeyType = UIReturnKeyDone;
 	self.customFontSizeInput.keyboardType = UIKeyboardTypeNumberPad;
 	self.customFontSizeInput.delegate = self;
 	
-	self.tableview.frame = CGRectMake(0, 36, self.view.bounds.size.width, self.view.bounds.size.height - 36);
+	self.okButton = [UIButton buttonWithType:UIButtonTypeSystem];
+	[self.okButton setTitle:localizedDict[@"ok"] forState:UIControlStateNormal];
+	[self.okButton addTarget:self
+					  action:@selector(onCustomFontSizeOKClicked:)
+			forControlEvents:UIControlEventTouchUpInside];
+	self.okButton.layer.borderWidth = 1;
+	self.okButton.layer.borderColor = [UIColor colorWithRed:0xe1 / 255.0f
+													  green:0xe1 / 255.0f
+													   blue:0xe1 / 255.0f
+													  alpha:1].CGColor;
+	[self.view addSubview:self.okButton];
+	
 	self.tableview.separatorInset = UIEdgeInsetsZero;
 	[self.view addSubview:self.tableview];
 	
@@ -84,11 +110,23 @@
 	[super viewDidLayoutSubviews];
 	
 	// adjust frame
-	self.customFontSizeInput.frame = CGRectMake(0, 0, self.view.bounds.size.width, 36);
+	self.okButton.frame = CGRectMake(self.view.bounds.size.width - 60, 0, 60, 36);
+	self.customFontSizeInput.frame = CGRectMake(0, 0, self.view.bounds.size.width - 63, 36);
 	self.tableview.frame = CGRectMake(0, 36, self.view.bounds.size.width, self.view.bounds.size.height - 36);
 }
 
 #pragma mark - IBActions -
+
+- (void)onCustomFontSizeOKClicked:(id)sender {
+	// validate font size
+	int fontSize = [self.customFontSizeInput.text intValue];
+	if(fontSize < [self.fontSizes[0] intValue] || fontSize > [self.fontSizes[self.fontSizes.count - 1] intValue]) {
+		return;
+	}
+	
+	// set font sizes
+	[self.delegate richTextEditorFontSizePickerViewControllerDidSelectFontSize:@(fontSize)];
+}
 
 - (void)closeSelected:(id)sender
 {
