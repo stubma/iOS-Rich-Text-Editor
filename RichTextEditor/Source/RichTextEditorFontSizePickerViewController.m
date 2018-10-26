@@ -55,6 +55,9 @@
 	if(!lan) {
 		lan = @"en";
 	}
+	if([lan length] > 2) {
+		lan = [lan substringToIndex:2];
+	}
 	BOOL isChinese = [@"zh" isEqualToString:lan];
 	NSString* lprojDir = isChinese ? @"zh-Hans.lproj" : @"en.lproj";
 	NSString* path = [[NSBundle mainBundle] pathForResource:@"RichTextEditor" ofType:@"strings" inDirectory:lprojDir];
