@@ -267,6 +267,7 @@
 - (void)richTextEditorToolbarDidSelectFontSize:(NSNumber *)fontSize
 {
 	[self applyFontAttributesToSelectedRangeWithBoldTrait:nil italicTrait:nil fontName:nil fontSize:fontSize];
+	[self becomeFirstResponder];
 }
 
 - (void)richTextEditorToolbarDidSelectFontWithName:(NSString *)fontName
