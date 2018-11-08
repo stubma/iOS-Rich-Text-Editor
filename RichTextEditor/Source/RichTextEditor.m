@@ -87,6 +87,9 @@
 {
 	self.borderColor = [UIColor lightGrayColor];
 	self.borderWidth = 1.0;
+
+	// default value
+	[[NSUserDefaults standardUserDefaults] registerDefaults:@{@"RichTextEditor_fontSize": @37}];
 	
 	self.toolBar = [[RichTextEditorToolbar alloc] initWithFrame:CGRectMake(0, 0, [self currentScreenBoundsDependOnOrientation].size.width, RICHTEXTEDITOR_TOOLBAR_HEIGHT)
 													   delegate:self
