@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name = 'iOSRichTextEditor'
-    s.version = '0.0.27'
+    s.version = '0.0.29'
     s.summary = 'A RichTextEditor for iPhone & iPad.'
     s.homepage = 'https://github.com/stubma/iOSRichTextEditor'
     s.dependency 'WEPopover', '~> 1.0.0'
