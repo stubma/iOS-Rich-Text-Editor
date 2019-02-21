@@ -37,17 +37,21 @@
 
 @implementation RTEColorPickerView
 
-#pragma mark - Private Methods -
-
-- (void)populateColorsForPoint:(CGPoint)point
-{
-	self.selectedColorView.backgroundColor = [self.colorsImageView colorOfPoint:point];
+- (void)awakeFromNib {
+	[super awakeFromNib];
 	
 	// init
 	self.colorsImageView.layer.borderColor = [UIColor lightGrayColor].CGColor;
 	self.colorsImageView.layer.borderWidth = 1;
 	self.selectedColorView.layer.borderColor = [UIColor lightGrayColor].CGColor;
 	self.selectedColorView.layer.borderWidth = 1;
+}
+
+#pragma mark - Private Methods -
+
+- (void)populateColorsForPoint:(CGPoint)point
+{
+	self.selectedColorView.backgroundColor = [self.colorsImageView colorOfPoint:point];
 }
 
 #pragma mark - Touch Detection -

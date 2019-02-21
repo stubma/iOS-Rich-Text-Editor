@@ -46,14 +46,40 @@
 	[super viewDidLoad];
 	
 	// load color picker view
-	NSBundle* bundle = [NSBundle bundleForClass:self.class];
-	UINib* nib = [UINib nibWithNibName:@"RTEColorPicker" bundle:bundle];
-	self.colorPickerView = [nib instantiateWithOwner:self options:nil][0];
+	self.colorPickerView = [[NSBundle mainBundle] loadNibNamed:@"RTEColorPicker" owner:RTEColorPickerView.class options:nil][0];
 	
 	// add
 	CGSize contentSize = CGSizeMake(self.view.frame.size.width, 100);
+	self.colorPickerView.translatesAutoresizingMaskIntoConstraints = false;
 	[self.view addSubview:self.colorPickerView];
-	self.colorPickerView.frame = CGRectMake(0, 0, contentSize.width, contentSize.height);
+	[self.view addConstraints:@[[NSLayoutConstraint constraintWithItem:self.colorPickerView
+															 attribute:NSLayoutAttributeTop
+															 relatedBy:NSLayoutRelationEqual
+																toItem:self.view
+															 attribute:NSLayoutAttributeTop
+															multiplier:1
+															  constant:0],
+								[NSLayoutConstraint constraintWithItem:self.colorPickerView
+															 attribute:NSLayoutAttributeLeft
+															 relatedBy:NSLayoutRelationEqual
+																toItem:self.view
+															 attribute:NSLayoutAttributeLeft
+															multiplier:1
+															  constant:0],
+								[NSLayoutConstraint constraintWithItem:self.colorPickerView
+															 attribute:NSLayoutAttributeBottom
+															 relatedBy:NSLayoutRelationEqual
+																toItem:self.view
+															 attribute:NSLayoutAttributeBottom
+															multiplier:1
+															  constant:0],
+								[NSLayoutConstraint constraintWithItem:self.colorPickerView
+															 attribute:NSLayoutAttributeRight
+															 relatedBy:NSLayoutRelationEqual
+																toItem:self.view
+															 attribute:NSLayoutAttributeRight
+															multiplier:1
+															  constant:0]]];
 	
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
 	self.preferredContentSize = contentSize;
