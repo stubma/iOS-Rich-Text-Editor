@@ -14,7 +14,7 @@
             <rect key="frame" x="0.0" y="0.0" width="331" height="111"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="colors.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="17q-6g-cO1">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="colors.png" translatesAutoresizingMaskIntoConstraints="NO" id="17q-6g-cO1">
                     <rect key="frame" x="5" y="5" width="286" height="101"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
@@ -60,6 +60,6 @@
         </view>
     </objects>
     <resources>
-        <image name="colors.jpg" width="388" height="600"/>
+        <image name="colors.png" width="388" height="600"/>
     </resources>
 </document>

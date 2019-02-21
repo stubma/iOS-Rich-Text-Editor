@@ -57,7 +57,6 @@
 		15BFE3EB17E4D01100D89153 /* firstLineIndent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15BFE3EA17E4D01100D89153 /* firstLineIndent@2x.png */; };
 		15C4131317A4444B0073D047 /* backcolor.png in Resources */ = {isa = PBXBuildFile; fileRef = 15C412F217A4444B0073D047 /* backcolor.png */; };
 		15C4131617A4444B0073D047 /* code.png in Resources */ = {isa = PBXBuildFile; fileRef = 15C412F517A4444B0073D047 /* code.png */; };
-		15C4131717A4444B0073D047 /* colors.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 15C412F617A4444B0073D047 /* colors.jpg */; };
 		15C4131817A4444B0073D047 /* email.png in Resources */ = {isa = PBXBuildFile; fileRef = 15C412F717A4444B0073D047 /* email.png */; };
 		15C4131917A4444B0073D047 /* file.png in Resources */ = {isa = PBXBuildFile; fileRef = 15C412F817A4444B0073D047 /* file.png */; };
 		15C4131A17A4444B0073D047 /* forecolor.png in Resources */ = {isa = PBXBuildFile; fileRef = 15C412F917A4444B0073D047 /* forecolor.png */; };
@@ -89,6 +88,7 @@
 		924245E9207F22F400BD6988 /* RichTextEditor.strings in Resources */ = {isa = PBXBuildFile; fileRef = 924245EB207F22F400BD6988 /* RichTextEditor.strings */; };
 		924F1666221E6355002F8A13 /* RTEColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 924F1665221E6355002F8A13 /* RTEColorPickerView.m */; };
 		924F1668221E67D0002F8A13 /* RTEColorPicker.nib in Resources */ = {isa = PBXBuildFile; fileRef = 924F1667221E67D0002F8A13 /* RTEColorPicker.nib */; };
+		924F1676221E6951002F8A13 /* colors.png in Resources */ = {isa = PBXBuildFile; fileRef = 924F1675221E6951002F8A13 /* colors.png */; };
 		92C6552720806E7300F111E4 /* UIColor+RichTextEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C6552620806E7300F111E4 /* UIColor+RichTextEditor.m */; };
 /* End PBXBuildFile section */
 
@@ -174,7 +174,6 @@
 		15BFE3EA17E4D01100D89153 /* firstLineIndent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "firstLineIndent@2x.png"; sourceTree = "<group>"; };
 		15C412F217A4444B0073D047 /* backcolor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backcolor.png; sourceTree = "<group>"; };
 		15C412F517A4444B0073D047 /* code.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = code.png; sourceTree = "<group>"; };
-		15C412F617A4444B0073D047 /* colors.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = colors.jpg; sourceTree = "<group>"; };
 		15C412F717A4444B0073D047 /* email.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = email.png; sourceTree = "<group>"; };
 		15C412F817A4444B0073D047 /* file.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = file.png; sourceTree = "<group>"; };
 		15C412F917A4444B0073D047 /* forecolor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = forecolor.png; sourceTree = "<group>"; };
@@ -210,6 +209,7 @@
 		924F1664221E6355002F8A13 /* RTEColorPickerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTEColorPickerView.h; sourceTree = "<group>"; };
 		924F1665221E6355002F8A13 /* RTEColorPickerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RTEColorPickerView.m; sourceTree = "<group>"; };
 		924F1667221E67D0002F8A13 /* RTEColorPicker.nib */ = {isa = PBXFileReference; lastKnownFileType = file; path = RTEColorPicker.nib; sourceTree = "<group>"; };
+		924F1675221E6951002F8A13 /* colors.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = colors.png; sourceTree = "<group>"; };
 		92C6552520806E7200F111E4 /* UIColor+RichTextEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+RichTextEditor.h"; sourceTree = "<group>"; };
 		92C6552620806E7300F111E4 /* UIColor+RichTextEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+RichTextEditor.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -273,8 +273,8 @@
 				1AFAED7117C7F9CA00E450B0 /* bold@2x.png */,
 				1AFAED8517C804AB00E450B0 /* bullist@2x.png */,
 				15C412F517A4444B0073D047 /* code.png */,
-				15C412F617A4444B0073D047 /* colors.jpg */,
 				15C412F717A4444B0073D047 /* email.png */,
+				924F1675221E6951002F8A13 /* colors.png */,
 				15C412F817A4444B0073D047 /* file.png */,
 				15C412F917A4444B0073D047 /* forecolor.png */,
 				15C412FA17A4444B0073D047 /* image.png */,
@@ -533,6 +533,7 @@
 				153F9591179F9953005B2487 /* popoverArrowLeft@2x.png in Resources */,
 				158389251735A5D7006DE713 /* Default.png in Resources */,
 				153F9597179F9953005B2487 /* popoverArrowUp@2x.png in Resources */,
+				924F1676221E6951002F8A13 /* colors.png in Resources */,
 				153F9592179F9953005B2487 /* popoverArrowLeftSimple.png in Resources */,
 				921432EC20C5155A0027D707 /* italic_disabled@2x.png in Resources */,
 				15BFE3EB17E4D01100D89153 /* firstLineIndent@2x.png in Resources */,
@@ -548,7 +549,6 @@
 				1583892F1735A5D7006DE713 /* MainStoryboard_iPad.storyboard in Resources */,
 				15C4131317A4444B0073D047 /* backcolor.png in Resources */,
 				15C4131617A4444B0073D047 /* code.png in Resources */,
-				15C4131717A4444B0073D047 /* colors.jpg in Resources */,
 				15C4131817A4444B0073D047 /* email.png in Resources */,
 				15C4131917A4444B0073D047 /* file.png in Resources */,
 				15C4131A17A4444B0073D047 /* forecolor.png in Resources */,
