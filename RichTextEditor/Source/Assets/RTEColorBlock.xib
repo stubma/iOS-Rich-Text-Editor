@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.31"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="RTEColorBlockCell">
+            <rect key="frame" x="0.0" y="0.0" width="84" height="76"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rcv-vC-JKm">
+                    <rect key="frame" x="0.0" y="0.0" width="84" height="76"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="12j-ds-ppp">
+                            <rect key="frame" x="2" y="2" width="80" height="72"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="12j-ds-ppp" secondAttribute="trailing" constant="2" id="BRr-OP-Tdx"/>
+                        <constraint firstAttribute="bottom" secondItem="12j-ds-ppp" secondAttribute="bottom" constant="2" id="IG0-f4-DvC"/>
+                        <constraint firstItem="12j-ds-ppp" firstAttribute="top" secondItem="Rcv-vC-JKm" secondAttribute="top" constant="2" id="IbO-mt-GwX"/>
+                        <constraint firstItem="12j-ds-ppp" firstAttribute="leading" secondItem="Rcv-vC-JKm" secondAttribute="leading" constant="2" id="rL7-dc-Lho"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="Rcv-vC-JKm" secondAttribute="bottom" id="F4Y-mz-qv0"/>
+                <constraint firstItem="Rcv-vC-JKm" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="L2n-Ql-gJO"/>
+                <constraint firstAttribute="trailing" secondItem="Rcv-vC-JKm" secondAttribute="trailing" id="V1i-i2-i0h"/>
+                <constraint firstItem="Rcv-vC-JKm" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="f5T-my-DqD"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="borderView" destination="Rcv-vC-JKm" id="Gmw-Rg-1Xv"/>
+                <outlet property="colorView" destination="12j-ds-ppp" id="IxB-QO-yfc"/>
+            </connections>
+            <point key="canvasLocation" x="-102.40000000000001" y="-112.44377811094454"/>
+        </view>
+    </objects>
+</document>
