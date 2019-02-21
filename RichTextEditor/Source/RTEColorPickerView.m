@@ -32,6 +32,9 @@
 
 @property (unsafe_unretained, nonatomic) IBOutlet UIImageView *colorsImageView;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView *selectedColorView;
+@property (unsafe_unretained, nonatomic) IBOutlet UIButton *backButton;
+
+- (IBAction)onBackClicked:(id)sender;
 
 @end
 
@@ -45,6 +48,8 @@
 	self.colorsImageView.layer.borderWidth = 1;
 	self.selectedColorView.layer.borderColor = [UIColor lightGrayColor].CGColor;
 	self.selectedColorView.layer.borderWidth = 1;
+	self.backButton.layer.borderColor = [UIColor lightGrayColor].CGColor;
+	self.backButton.layer.borderWidth = 1;
 }
 
 #pragma mark - Private Methods -
@@ -66,6 +71,9 @@
 {
 	CGPoint locationPoint = [[touches anyObject] locationInView:self.colorsImageView];
 	[self populateColorsForPoint:locationPoint];
+}
+
+- (IBAction)onBackClicked:(id)sender {
 }
 
 @end
