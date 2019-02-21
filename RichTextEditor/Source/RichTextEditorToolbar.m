@@ -672,6 +672,13 @@
 	[self dismissViewController];
 }
 
+- (NSArray<NSString*>*)predefinedColorsForColorPickerViewController:(RichTextEditorColorPickerViewController*)cpvc {
+	if(self.dataSource && [self.dataSource respondsToSelector:@selector(predefinedColorsForRichTextEditorToolbar)]) {
+		return [self.dataSource predefinedColorsForRichTextEditorToolbar];
+	}
+	return @[];
+}
+
 #pragma mark - RichTextEditorFontSizePickerViewControllerDelegate & RichTextEditorFontSizePickerViewControllerDataSource Methods -
 
 - (void)richTextEditorFontSizePickerViewControllerDidSelectFontSize:(NSNumber *)fontSize

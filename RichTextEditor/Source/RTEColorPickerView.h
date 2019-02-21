@@ -29,4 +29,12 @@
 
 @interface RTEColorPickerView : UIView
 
+@property (nonatomic, strong) NSArray<NSString*>* predefinedColors;
+
+// how many columns for collection view
+@property (nonatomic, assign) NSInteger colorColumns;
+
+// minimum size to hold colors
+@property (nonatomic, assign, readonly) CGSize minimumSize;
+
 @end

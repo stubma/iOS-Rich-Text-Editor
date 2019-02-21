@@ -33,6 +33,7 @@
 @optional
 - (NSArray *)fontSizeSelectionForRichTextEditor:(RichTextEditor *)richTextEditor;
 - (NSArray *)fontFamilySelectionForRichTextEditor:(RichTextEditor *)richTextEditor;
+- (NSArray *)predefinedColorsForRichTextEditor:(RichTextEditor *)richTextEditor;
 - (RichTextEditorFeature)featuresEnabledForRichTextEditor:(RichTextEditor *)richTextEditor;
 - (BOOL)shouldDisplayToolbarForRichTextEditor:(RichTextEditor *)richTextEditor;
 - (BOOL)shouldDisplayRichTextOptionsInMenuControllerForRichTextEditor:(RichTextEditor *)richTextEdiotor;

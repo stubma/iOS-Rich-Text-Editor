@@ -49,7 +49,6 @@
 	self.colorPickerView = [[NSBundle mainBundle] loadNibNamed:@"RTEColorPicker" owner:RTEColorPickerView.class options:nil][0];
 	
 	// add
-	CGSize contentSize = CGSizeMake(self.view.frame.size.width, 100);
 	self.colorPickerView.translatesAutoresizingMaskIntoConstraints = false;
 	[self.view addSubview:self.colorPickerView];
 	[self.view addConstraints:@[[NSLayoutConstraint constraintWithItem:self.colorPickerView
@@ -81,6 +80,15 @@
 															multiplier:1
 															  constant:0]]];
 	
+	// set predefined colors
+	if(self.dataSource && [self.dataSource respondsToSelector:@selector(predefinedColorsForColorPickerViewController:)]) {
+		self.colorPickerView.predefinedColors = [self.dataSource predefinedColorsForColorPickerViewController:self];
+	} else {
+		self.colorPickerView.predefinedColors = @[];
+	}
+	
+	// set content size
+	CGSize contentSize = self.colorPickerView.minimumSize;
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
 	self.preferredContentSize = contentSize;
 #else

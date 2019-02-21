@@ -69,6 +69,7 @@ typedef enum{
 @protocol RichTextEditorToolbarDataSource <NSObject>
 - (NSArray *)fontSizeSelectionForRichTextEditorToolbar;
 - (NSArray *)fontFamilySelectionForRichTextEditorToolbar;
+- (NSArray *)predefinedColorsForRichTextEditorToolbar;
 - (UIViewController *)firsAvailableViewControllerForRichTextEditorToolbar;
 - (RichTextEditorFeature)featuresEnabledForRichTextEditorToolbar;
 @end

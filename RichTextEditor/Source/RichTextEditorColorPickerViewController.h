@@ -39,7 +39,10 @@ typedef enum {
 - (void)richTextEditorColorPickerViewControllerDidSelectClose;
 @end
 
+@class RichTextEditorColorPickerViewController;
 @protocol RichTextEditorColorPickerViewControllerDataSource <NSObject>
+@optional
+- (NSArray<NSString*>*)predefinedColorsForColorPickerViewController:(RichTextEditorColorPickerViewController*)cpvc;
 @end
 
 @interface RichTextEditorColorPickerViewController : UIViewController
