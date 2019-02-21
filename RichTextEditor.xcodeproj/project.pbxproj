@@ -87,6 +87,8 @@
 		921432EA20C515530027D707 /* bold_disabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 921432E920C515530027D707 /* bold_disabled@2x.png */; };
 		921432EC20C5155A0027D707 /* italic_disabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 921432EB20C5155A0027D707 /* italic_disabled@2x.png */; };
 		924245E9207F22F400BD6988 /* RichTextEditor.strings in Resources */ = {isa = PBXBuildFile; fileRef = 924245EB207F22F400BD6988 /* RichTextEditor.strings */; };
+		924F1666221E6355002F8A13 /* RTEColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 924F1665221E6355002F8A13 /* RTEColorPickerView.m */; };
+		924F1668221E67D0002F8A13 /* RTEColorPicker.nib in Resources */ = {isa = PBXBuildFile; fileRef = 924F1667221E67D0002F8A13 /* RTEColorPicker.nib */; };
 		92C6552720806E7300F111E4 /* UIColor+RichTextEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C6552620806E7300F111E4 /* UIColor+RichTextEditor.m */; };
 /* End PBXBuildFile section */
 
@@ -204,6 +206,10 @@
 		924245EA207F22F400BD6988 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/RichTextEditor.strings; sourceTree = "<group>"; };
 		924245EC207F231F00BD6988 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/RichTextEditor.strings"; sourceTree = "<group>"; };
 		92424628207F3B6200BD6988 /* iOS-Rich-Text-Editor.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "iOS-Rich-Text-Editor.podspec"; sourceTree = SOURCE_ROOT; };
+		924F1663221E62C2002F8A13 /* RTEColorPicker.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RTEColorPicker.xib; sourceTree = "<group>"; };
+		924F1664221E6355002F8A13 /* RTEColorPickerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTEColorPickerView.h; sourceTree = "<group>"; };
+		924F1665221E6355002F8A13 /* RTEColorPickerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RTEColorPickerView.m; sourceTree = "<group>"; };
+		924F1667221E67D0002F8A13 /* RTEColorPicker.nib */ = {isa = PBXFileReference; lastKnownFileType = file; path = RTEColorPicker.nib; sourceTree = "<group>"; };
 		92C6552520806E7200F111E4 /* UIColor+RichTextEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+RichTextEditor.h"; sourceTree = "<group>"; };
 		92C6552620806E7300F111E4 /* UIColor+RichTextEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+RichTextEditor.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -251,6 +257,8 @@
 				153F9580179F9953005B2487 /* RichTextEditorFontPickerViewController.m */,
 				153F9581179F9953005B2487 /* RichTextEditorFontSizePickerViewController.h */,
 				153F9582179F9953005B2487 /* RichTextEditorFontSizePickerViewController.m */,
+				924F1664221E6355002F8A13 /* RTEColorPickerView.h */,
+				924F1665221E6355002F8A13 /* RTEColorPickerView.m */,
 				153F9583179F9953005B2487 /* RichTextEditorPopover.h */,
 			);
 			path = Source;
@@ -289,6 +297,8 @@
 				15C4130817A4444B0073D047 /* undo.png */,
 				15C4130917A4444B0073D047 /* unlink.png */,
 				924245EB207F22F400BD6988 /* RichTextEditor.strings */,
+				924F1667221E67D0002F8A13 /* RTEColorPicker.nib */,
+				924F1663221E62C2002F8A13 /* RTEColorPicker.xib */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -557,6 +567,7 @@
 				15AE737B17A5696D007F283A /* buttonleftSelected.png in Resources */,
 				15AE737C17A5696D007F283A /* buttonrightSelected.png in Resources */,
 				15AE737D17A5696D007F283A /* buttonSelected.png in Resources */,
+				924F1668221E67D0002F8A13 /* RTEColorPicker.nib in Resources */,
 				1AFAED7217C7F9CA00E450B0 /* strikethrough@2x.png in Resources */,
 				1AFAED7317C7F9CA00E450B0 /* italic@2x.png in Resources */,
 				1AFAED7417C7F9CA00E450B0 /* underline@2x.png in Resources */,
@@ -619,6 +630,7 @@
 				158389231735A5D7006DE713 /* AppDelegate.m in Sources */,
 				158389321735A5D7006DE713 /* ViewController.m in Sources */,
 				153F95A1179F9953005B2487 /* RichTextEditorColorPickerViewController.m in Sources */,
+				924F1666221E6355002F8A13 /* RTEColorPickerView.m in Sources */,
 				153F958A179F9953005B2487 /* NSAttributedString+RichTextEditor.m in Sources */,
 				15B6E20F17A4C2820015867C /* RichTextEditorToggleButton.m in Sources */,
 				92C6552720806E7300F111E4 /* UIColor+RichTextEditor.m in Sources */,

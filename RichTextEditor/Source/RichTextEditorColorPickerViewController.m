@@ -27,11 +27,13 @@
 
 #import "RichTextEditorColorPickerViewController.h"
 #import "UIColor+RichTextEditor.h"
+#import "RTEColorPickerView.h"
 
 @interface RichTextEditorColorPickerViewController ()
 
 @property (nonatomic, assign, readonly) UIColor* lastSelectedForegroundColor;
 @property (nonatomic, assign, readonly) UIColor* lastSelectedBackgroundColor;
+@property (nonatomic, strong) RTEColorPickerView* colorPickerView;
 
 @end
 
@@ -43,23 +45,15 @@
 {
 	[super viewDidLoad];
 	
-	self.view.backgroundColor = [UIColor whiteColor];
+	// load color picker view
+	NSBundle* bundle = [NSBundle bundleForClass:self.class];
+	UINib* nib = [UINib nibWithNibName:@"RTEColorPicker" bundle:bundle];
+	self.colorPickerView = [nib instantiateWithOwner:self options:nil][0];
 	
-	CGSize contentSize = CGSizeMake(self.view.frame.size.width - 10, 100);
-	
-	self.selectedColorView = [[UIView alloc] initWithFrame:CGRectMake(contentSize.width - 30, (contentSize.height - 30) / 2, 35, 30)];
-	self.selectedColorView.backgroundColor = self.action == RichTextEditorColorPickerActionTextForegroudColor ? self.lastSelectedForegroundColor : self.lastSelectedBackgroundColor;
-	self.selectedColorView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-	self.selectedColorView.layer.borderWidth = 1;
-	self.selectedColorView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-	[self.view addSubview:self.selectedColorView];
-	
-	self.colorsImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"colors.jpg"]];
-	self.colorsImageView.frame = CGRectMake(0, 0, contentSize.width - 5 - self.selectedColorView.frame.size.width, contentSize.height);
-	self.colorsImageView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-	self.colorsImageView.layer.borderWidth = 1;
-	self.colorsImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-	[self.view addSubview:self.colorsImageView];
+	// add
+	CGSize contentSize = CGSizeMake(self.view.frame.size.width, 100);
+	[self.view addSubview:self.colorPickerView];
+	self.colorPickerView.frame = CGRectMake(0, 0, contentSize.width, contentSize.height);
 	
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
 	self.preferredContentSize = contentSize;
@@ -86,13 +80,6 @@
 	return [UIColor rte_colorWithHexString:cstr];
 }
 
-#pragma mark - Private Methods -
-
-- (void)populateColorsForPoint:(CGPoint)point
-{
-	self.selectedColorView.backgroundColor = [self.colorsImageView colorOfPoint:point];
-}
-
 #pragma mark - IBActions -
 
 - (IBAction)doneSelected:(id)sender
@@ -103,22 +90,6 @@
 - (IBAction)closeSelected:(id)sender
 {
 	[self.delegate richTextEditorColorPickerViewControllerDidSelectClose];
-}
-
-#pragma mark - Touch Detection -
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-	CGPoint locationPoint = [[touches anyObject] locationInView:self.colorsImageView];
-	[self populateColorsForPoint:locationPoint];
-	[self doneSelected:nil];
-}
-
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
-	CGPoint locationPoint = [[touches anyObject] locationInView:self.colorsImageView];
-	[self populateColorsForPoint:locationPoint];
-	[self doneSelected:nil];
 }
 
 @end
