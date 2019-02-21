@@ -4,6 +4,7 @@ Pod::Spec.new do |s|
     s.summary = 'A RichTextEditor for iPhone & iPad.'
     s.homepage = 'https://github.com/stubma/iOSRichTextEditor'
     s.dependency 'WEPopover', '~> 1.0.0'
+	s.dependency 'KVConstraintExtensionsMaster', :git => 'https://github.com/stubma/KVConstraintExtensionsMaster.git'
     s.license = {
       :type => 'MIT',
       :file => 'License.txt'
