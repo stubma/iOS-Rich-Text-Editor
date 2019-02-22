@@ -100,9 +100,6 @@
 		NSInteger rows = (self.predefinedColors.count + self.colorColumns - 1) / self.colorColumns;
 		height += rows * layout.itemSize.height;
 		height += (rows - 1) * layout.minimumInteritemSpacing;
-		if(rows > 1) {
-			height++;
-		}
 	}
 	
 	// recent label
