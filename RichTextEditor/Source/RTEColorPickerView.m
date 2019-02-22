@@ -28,6 +28,7 @@
 #import "RTEColorPickerView.h"
 #import "UIView+RichTextEditor.h"
 #import "RTEColorBlockCell.h"
+#import "RTEAddColorCell.h"
 #import "UIColor+RichTextEditor.h"
 #import "RTELocalization.h"
 
@@ -43,7 +44,12 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *predefinedColorsLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *recentUsedColorsLabel;
 @property (nonatomic, strong) NSIndexPath* selectedColorIndexPath;
-@property (nonatomic, assign) BOOL predefinedSelected;
+@property (nonatomic, assign) UICollectionView* activeCollectionView;
+@property (nonatomic, strong) NSMutableArray<NSString*>* recentColors;
+@property (nonatomic, assign) BOOL colorChanged;
+
+// selected color in block panel
+@property (nonatomic, assign, readonly) UIColor* selectedBlockColor;
 
 - (IBAction)onBackClicked:(id)sender;
 
@@ -56,7 +62,8 @@
 	
 	// init
 	self.predefinedColors = @[];
-	self.predefinedSelected = false;
+	self.activeCollectionView = self.predefinedCollectionView;
+	self.recentColors = [NSMutableArray array];
 	
 	// border
 	self.colorsImageView.layer.borderColor = [UIColor lightGrayColor].CGColor;
@@ -74,23 +81,23 @@
 	self.recentUsedColorsLabel.text = _RTE_L(@"recently.used.colors");
 	
 	// default columns
-	self.colorColumns = 12;
+	self.colorColumns = 11;
 	
 	// collection view
 	[self.predefinedCollectionView registerNib:[UINib nibWithNibName:@"RTEColorBlock" bundle:[NSBundle mainBundle]]
 					forCellWithReuseIdentifier:@"block"];
 	UICollectionViewFlowLayout* layout = (UICollectionViewFlowLayout*)self.predefinedCollectionView.collectionViewLayout;
-	layout.itemSize = CGSizeMake(24, 24);
-	layout.minimumLineSpacing = 2;
-	layout.minimumInteritemSpacing = 2;
+	layout.itemSize = CGSizeMake(28, 28);
+	layout.minimumLineSpacing = 1;
+	layout.minimumInteritemSpacing = 1;
 	[self.recentCollectionView registerNib:[UINib nibWithNibName:@"RTEColorBlock" bundle:[NSBundle mainBundle]]
 				forCellWithReuseIdentifier:@"block"];
 	[self.recentCollectionView registerNib:[UINib nibWithNibName:@"RTEAddColor" bundle:[NSBundle mainBundle]]
 				forCellWithReuseIdentifier:@"add"];
 	layout = (UICollectionViewFlowLayout*)self.recentCollectionView.collectionViewLayout;
-	layout.itemSize = CGSizeMake(24, 24);
-	layout.minimumLineSpacing = 2;
-	layout.minimumInteritemSpacing = 2;
+	layout.itemSize = CGSizeMake(28, 28);
+	layout.minimumLineSpacing = 1;
+	layout.minimumInteritemSpacing = 1;
 }
 
 - (CGSize)minimumSize {
@@ -101,7 +108,7 @@
 	UICollectionViewFlowLayout* layout = (UICollectionViewFlowLayout*)self.predefinedCollectionView.collectionViewLayout;
 	
 	// width
-	width = self.colorColumns * layout.itemSize.width + (self.colorColumns - 1) * layout.minimumLineSpacing;
+	width = self.colorColumns * layout.itemSize.width + (self.colorColumns - 1) * layout.minimumInteritemSpacing;
 	
 	// label height
 	height += self.predefinedColorsLabel.frame.size.height;
@@ -110,7 +117,7 @@
 	// get rows of predefined colors
 	NSInteger rows = (self.predefinedColors.count + self.colorColumns - 1) / self.colorColumns;
 	height += rows * layout.itemSize.height;
-	height += (rows - 1) * layout.minimumInteritemSpacing;
+	height += (rows - 1) * layout.minimumLineSpacing;
 	
 	// recent label
 	height += 5;
@@ -122,6 +129,57 @@
 	
 	// return
 	return CGSizeMake(width, height);
+}
+
+- (UIColor *)selectedBlockColor {
+	if(self.selectedColorIndexPath) {
+		NSString* str = self.activeCollectionView == self.predefinedCollectionView ? self.predefinedColors[self.selectedColorIndexPath.row] : self.recentColors[self.selectedColorIndexPath.row];
+		return [UIColor rte_colorWithHexString:str];
+	}
+	return nil;
+}
+
+- (void)setAction:(RichTextEditorColorPickerAction)action {
+	_action = action;
+	
+	// reload recent used colors
+	NSString* key = action == RichTextEditorColorPickerActionTextForegroudColor ? @"rte_fg_recent" : @"rte_bg_recent";
+	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
+	NSData* data = [d objectForKey:key];
+	NSArray* arr = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+	[self.recentColors removeAllObjects];
+	[self.recentColors addObjectsFromArray:arr];
+	
+	// reload ui
+	[self.recentCollectionView reloadData];
+}
+
+- (void)saveRecentColor {
+	if(self.colorChanged) {
+		NSString* colorStr = [UIColor rte_hexValuesFromUIColor:self.selectedColorView.backgroundColor];
+		[self.recentColors removeObject:colorStr];
+		[self.recentColors insertObject:colorStr atIndex:0];
+		while (self.recentColors.count > self.colorColumns - 1) {
+			[self.recentColors removeLastObject];
+		}
+		NSString* key = self.action == RichTextEditorColorPickerActionTextForegroudColor ? @"rte_fg_recent" : @"rte_bg_recent";
+		NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
+		NSData* data = [NSKeyedArchiver archivedDataWithRootObject:self.recentColors];
+		[d setObject:data forKey:key];
+		[d synchronize];
+	}
+}
+
+- (IBAction)onBackClicked:(id)sender {
+	// show block panel
+	self.blockPanel.hidden = false;
+	self.customPanel.hidden = true;
+	
+	// if color is changed in custom panel, clear selection of block panel
+	if(![self.selectedColorView.backgroundColor isEqual:self.selectedBlockColor]) {
+		self.selectedColorIndexPath = nil;
+		[self.activeCollectionView reloadData];
+	}
 }
 
 #pragma mark - Private Methods -
@@ -137,31 +195,55 @@
 {
 	CGPoint locationPoint = [[touches anyObject] locationInView:self.colorsImageView];
 	[self populateColorsForPoint:locationPoint];
+	self.colorChanged = true;
+	[self.delegate richTextEditorColorPickerViewControllerDidSelectColor:self.selectedColorView.backgroundColor
+															  withAction:self.action];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
 	CGPoint locationPoint = [[touches anyObject] locationInView:self.colorsImageView];
 	[self populateColorsForPoint:locationPoint];
-}
-
-- (IBAction)onBackClicked:(id)sender {
+	self.colorChanged = true;
+	[self.delegate richTextEditorColorPickerViewControllerDidSelectColor:self.selectedColorView.backgroundColor
+															  withAction:self.action];
 }
 
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-	if(collectionView == self.predefinedCollectionView) {
-		self.predefinedSelected = true;
-	} else {
-		self.predefinedSelected = false;
+	NSString* type = @"block";
+	if(collectionView == self.recentCollectionView && indexPath.row >= self.recentColors.count) {
+		type = @"add";
 	}
-	NSIndexPath* oldSelected = self.selectedColorIndexPath;
-	self.selectedColorIndexPath = indexPath;
-	if(oldSelected) {
-		[collectionView reloadItemsAtIndexPaths:@[oldSelected, indexPath]];
-	} else {
-		[collectionView reloadItemsAtIndexPaths:@[indexPath]];
+	if([@"block" isEqualToString:type]) {
+		if(![indexPath isEqual:self.selectedColorIndexPath]) {
+			// set selected index path
+			NSIndexPath* oldSelected = self.selectedColorIndexPath;
+			self.selectedColorIndexPath = indexPath;
+			
+			// change active collection view
+			UICollectionView* oldActive = self.activeCollectionView;
+			self.activeCollectionView = collectionView;
+			
+			// reload old
+			if(oldSelected) {
+				[oldActive reloadItemsAtIndexPaths:@[oldSelected]];
+			}
+			
+			// reload new
+			[collectionView reloadItemsAtIndexPaths:@[indexPath]];
+			
+			// delegate
+			self.selectedColorView.backgroundColor = self.selectedBlockColor;
+			self.colorChanged = true;
+			[self.delegate richTextEditorColorPickerViewControllerDidSelectColor:self.selectedColorView.backgroundColor
+																	  withAction:self.action];
+		}
+	} else if([@"add" isEqualToString:type]) {
+		// show custom panel
+		self.blockPanel.hidden = true;
+		self.customPanel.hidden = false;
 	}
 }
 
@@ -171,17 +253,21 @@
 	if(collectionView == self.predefinedCollectionView) {
 		return self.predefinedColors.count;
 	} else {
-		return 0;
+		return self.recentColors.count + 1;
 	}
 }
 
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-	UICollectionViewCell* c = [collectionView dequeueReusableCellWithReuseIdentifier:@"block" forIndexPath:indexPath];
-	if(collectionView == self.predefinedCollectionView) {
-		NSString* colorStr = self.predefinedColors[indexPath.row];
+	NSString* type = @"block";
+	if(collectionView == self.recentCollectionView && indexPath.row >= self.recentColors.count) {
+		type = @"add";
+	}
+	UICollectionViewCell* c = [collectionView dequeueReusableCellWithReuseIdentifier:type forIndexPath:indexPath];
+	if([@"block" isEqualToString:type]) {
+		NSString* colorStr = collectionView == self.predefinedCollectionView ? self.predefinedColors[indexPath.row] : self.recentColors[indexPath.row];
 		RTEColorBlockCell* cell = (RTEColorBlockCell*)c;
-		if(self.predefinedSelected && [indexPath isEqual:self.selectedColorIndexPath]) {
+		if(self.activeCollectionView == collectionView && [indexPath isEqual:self.selectedColorIndexPath]) {
 			cell.borderView.layer.borderColor = [UIColor blueColor].CGColor;
 		} else {
 			cell.borderView.layer.borderColor = [UIColor clearColor].CGColor;

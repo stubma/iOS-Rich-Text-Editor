@@ -278,7 +278,7 @@
 - (void)textBackgroundColorSelected:(UIButton *)sender
 {
 	// if background popover is opened, dismiss it, otherwise show new popover
-	if(self.popover && [[self.popover contentViewController] isKindOfClass:RichTextEditorColorPickerViewController.class] &&
+	if(self.popover && [self.popover isPopoverVisible] && [[self.popover contentViewController] isKindOfClass:RichTextEditorColorPickerViewController.class] &&
 	   ((RichTextEditorColorPickerViewController*)[self.popover contentViewController]).action == RichTextEditorColorPickerActionTextBackgroundColor) {
 		[self.popover dismissPopoverAnimated:YES];
 		self.popover = nil;
@@ -294,7 +294,7 @@
 - (void)textForegroundColorSelected:(UIButton *)sender
 {
 	// if foreground popover is opened, dismiss it, otherwise show new popover
-	if(self.popover && [[self.popover contentViewController] isKindOfClass:RichTextEditorColorPickerViewController.class] &&
+	if(self.popover && [self.popover isPopoverVisible] && [[self.popover contentViewController] isKindOfClass:RichTextEditorColorPickerViewController.class] &&
 	   ((RichTextEditorColorPickerViewController*)[self.popover contentViewController]).action == RichTextEditorColorPickerActionTextForegroudColor) {
 		[self.popover dismissPopoverAnimated:YES];
 		self.popover = nil;

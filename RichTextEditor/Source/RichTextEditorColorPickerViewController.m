@@ -87,6 +87,10 @@
 		self.colorPickerView.predefinedColors = @[];
 	}
 	
+	// set action and delegate
+	self.colorPickerView.action = self.action;
+	self.colorPickerView.delegate = self.delegate;
+	
 	// set content size
 	CGSize contentSize = self.colorPickerView.minimumSize;
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
@@ -94,6 +98,13 @@
 #else
 	self.contentSizeForViewInPopover = contentSize;
 #endif
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
+	
+	// save recent color
+	[self.colorPickerView saveRecentColor];
 }
 
 - (UIColor*)lastSelectedForegroundColor {
@@ -112,18 +123,6 @@
 		cstr = @"00000000";
 	}
 	return [UIColor rte_colorWithHexString:cstr];
-}
-
-#pragma mark - IBActions -
-
-- (IBAction)doneSelected:(id)sender
-{
-	[self.delegate richTextEditorColorPickerViewControllerDidSelectColor:self.selectedColorView.backgroundColor withAction:self.action];
-}
-
-- (IBAction)closeSelected:(id)sender
-{
-	[self.delegate richTextEditorColorPickerViewControllerDidSelectClose];
 }
 
 @end

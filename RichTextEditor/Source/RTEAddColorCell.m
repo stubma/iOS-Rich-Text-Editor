@@ -36,9 +36,6 @@
 @implementation RTEAddColorCell
 
 - (IBAction)onAddClicked:(id)sender {
-	if(self.onAddClicked) {
-		self.onAddClicked();
-	}
 }
 
 @end

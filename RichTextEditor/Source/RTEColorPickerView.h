@@ -26,6 +26,7 @@
 // THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
+#import "RichTextEditorColorPickerViewController.h"
 
 @interface RTEColorPickerView : UIView
 
@@ -36,5 +37,14 @@
 
 // minimum size to hold colors
 @property (nonatomic, assign, readonly) CGSize minimumSize;
+
+// action
+@property (nonatomic, assign) RichTextEditorColorPickerAction action;
+
+// color picker delegate
+@property (nonatomic, weak) id <RichTextEditorColorPickerViewControllerDelegate> delegate;
+
+// update recent color list
+- (void)saveRecentColor;
 
 @end

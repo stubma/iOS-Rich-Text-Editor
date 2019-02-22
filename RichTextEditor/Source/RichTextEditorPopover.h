@@ -34,5 +34,6 @@
 - (void)presentPopoverFromBarButtonItem:(UIBarButtonItem *)item permittedArrowDirections:(UIPopoverArrowDirection)arrowDirections animated:(BOOL)animated;
 - (void)dismissPopoverAnimated:(BOOL)animated;
 - (UIViewController*)contentViewController;
+- (BOOL)isPopoverVisible;
 
 @end

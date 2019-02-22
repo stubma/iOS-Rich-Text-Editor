@@ -72,8 +72,11 @@
 	CGFloat blue;
 	CGFloat green;
 	CGFloat alpha;
-	
 	[color getRed:&red green:&green blue:&blue alpha:&alpha];
+	red = MAX(0, MIN(1, red));
+	green = MAX(0, MIN(1, green));
+	blue = MAX(0, MIN(1, blue));
+	alpha = MAX(0, MIN(1, alpha));
 	
 	int redDec = (int)(red * 255);
 	int greenDec = (int)(green * 255);

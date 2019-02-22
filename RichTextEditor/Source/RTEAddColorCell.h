@@ -29,6 +29,4 @@
 
 @interface RTEAddColorCell : UICollectionViewCell
 
-@property (nonatomic, copy) void (^onAddClicked)(void);
-
 @end
