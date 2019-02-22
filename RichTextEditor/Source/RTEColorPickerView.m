@@ -42,6 +42,8 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UICollectionView *recentCollectionView;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *predefinedColorsLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *recentUsedColorsLabel;
+@property (nonatomic, strong) NSIndexPath* selectedColorIndexPath;
+@property (nonatomic, assign) BOOL predefinedSelected;
 
 - (IBAction)onBackClicked:(id)sender;
 
@@ -51,6 +53,10 @@
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
+	
+	// init
+	self.predefinedColors = @[];
+	self.predefinedSelected = false;
 	
 	// border
 	self.colorsImageView.layer.borderColor = [UIColor lightGrayColor].CGColor;
@@ -95,17 +101,14 @@
 	// width
 	width = self.colorColumns * layout.itemSize.width + (self.colorColumns - 1) * layout.minimumLineSpacing;
 	
-	// the predefined colors must be set to evaluate size
-	if(self.predefinedColors) {
-		// label height
-		height += self.predefinedColorsLabel.frame.size.height;
-		height += 2;
-		
-		// get rows of predefined colors
-		NSInteger rows = (self.predefinedColors.count + self.colorColumns - 1) / self.colorColumns;
-		height += rows * layout.itemSize.height;
-		height += (rows - 1) * layout.minimumInteritemSpacing;
-	}
+	// label height
+	height += self.predefinedColorsLabel.frame.size.height;
+	height += 2;
+	
+	// get rows of predefined colors
+	NSInteger rows = (self.predefinedColors.count + self.colorColumns - 1) / self.colorColumns;
+	height += rows * layout.itemSize.height;
+	height += (rows - 1) * layout.minimumInteritemSpacing;
 	
 	// recent label
 	height += 5;
@@ -146,6 +149,18 @@
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+	if(collectionView == self.predefinedCollectionView) {
+		self.predefinedSelected = true;
+	} else {
+		self.predefinedSelected = false;
+	}
+	NSIndexPath* oldSelected = self.selectedColorIndexPath;
+	self.selectedColorIndexPath = indexPath;
+	if(oldSelected) {
+		[collectionView reloadItemsAtIndexPaths:@[oldSelected, indexPath]];
+	} else {
+		[collectionView reloadItemsAtIndexPaths:@[indexPath]];
+	}
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -164,6 +179,11 @@
 	if(collectionView == self.predefinedCollectionView) {
 		NSString* colorStr = self.predefinedColors[indexPath.row];
 		RTEColorBlockCell* cell = (RTEColorBlockCell*)c;
+		if(self.predefinedSelected && [indexPath isEqual:self.selectedColorIndexPath]) {
+			cell.borderView.layer.borderColor = [UIColor blueColor].CGColor;
+		} else {
+			cell.borderView.layer.borderColor = [UIColor clearColor].CGColor;
+		}
 		cell.colorView.backgroundColor = [UIColor rte_colorWithHexString:colorStr];
 	}
 	return c;
