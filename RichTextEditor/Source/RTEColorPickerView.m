@@ -70,8 +70,6 @@
 	self.colorsImageView.layer.borderWidth = 1;
 	self.selectedColorView.layer.borderColor = [UIColor lightGrayColor].CGColor;
 	self.selectedColorView.layer.borderWidth = 1;
-	self.backButton.layer.borderColor = [UIColor lightGrayColor].CGColor;
-	self.backButton.layer.borderWidth = 1;
 	
 	// hide custom panel first
 	self.customPanel.hidden = true;
