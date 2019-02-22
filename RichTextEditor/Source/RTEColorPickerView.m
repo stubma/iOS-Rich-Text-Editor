@@ -85,6 +85,8 @@
 	layout.minimumInteritemSpacing = 2;
 	[self.recentCollectionView registerNib:[UINib nibWithNibName:@"RTEColorBlock" bundle:[NSBundle mainBundle]]
 				forCellWithReuseIdentifier:@"block"];
+	[self.recentCollectionView registerNib:[UINib nibWithNibName:@"RTEAddColor" bundle:[NSBundle mainBundle]]
+				forCellWithReuseIdentifier:@"add"];
 	layout = (UICollectionViewFlowLayout*)self.recentCollectionView.collectionViewLayout;
 	layout.itemSize = CGSizeMake(24, 24);
 	layout.minimumLineSpacing = 2;

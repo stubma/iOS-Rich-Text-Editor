@@ -93,6 +93,9 @@
 		924F1699221E74AD002F8A13 /* RTEColorBlockCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 924F1698221E74AD002F8A13 /* RTEColorBlockCell.m */; };
 		924F169B221E7564002F8A13 /* RTEColorBlock.nib in Resources */ = {isa = PBXBuildFile; fileRef = 924F169A221E7564002F8A13 /* RTEColorBlock.nib */; };
 		925E0733221FA4F300F8EE93 /* RTELocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 925E0732221FA4F300F8EE93 /* RTELocalization.m */; };
+		925E0741221FB74300F8EE93 /* rte_add_color@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 925E0740221FB74300F8EE93 /* rte_add_color@3x.png */; };
+		925E0744221FB79600F8EE93 /* RTEAddColorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 925E0743221FB79600F8EE93 /* RTEAddColorCell.m */; };
+		925E0748221FB95B00F8EE93 /* RTEAddColor.nib in Resources */ = {isa = PBXBuildFile; fileRef = 925E0747221FB95B00F8EE93 /* RTEAddColor.nib */; };
 		92C6552720806E7300F111E4 /* UIColor+RichTextEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C6552620806E7300F111E4 /* UIColor+RichTextEditor.m */; };
 /* End PBXBuildFile section */
 
@@ -221,6 +224,11 @@
 		924F169A221E7564002F8A13 /* RTEColorBlock.nib */ = {isa = PBXFileReference; lastKnownFileType = file; path = RTEColorBlock.nib; sourceTree = "<group>"; };
 		925E0731221FA4F300F8EE93 /* RTELocalization.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTELocalization.h; sourceTree = "<group>"; };
 		925E0732221FA4F300F8EE93 /* RTELocalization.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RTELocalization.m; sourceTree = "<group>"; };
+		925E0740221FB74300F8EE93 /* rte_add_color@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rte_add_color@3x.png"; sourceTree = "<group>"; };
+		925E0742221FB79600F8EE93 /* RTEAddColorCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTEAddColorCell.h; sourceTree = "<group>"; };
+		925E0743221FB79600F8EE93 /* RTEAddColorCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RTEAddColorCell.m; sourceTree = "<group>"; };
+		925E0745221FB89B00F8EE93 /* RTEAddColor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RTEAddColor.xib; sourceTree = "<group>"; };
+		925E0747221FB95B00F8EE93 /* RTEAddColor.nib */ = {isa = PBXFileReference; lastKnownFileType = file; path = RTEAddColor.nib; sourceTree = "<group>"; };
 		92C6552520806E7200F111E4 /* UIColor+RichTextEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+RichTextEditor.h"; sourceTree = "<group>"; };
 		92C6552620806E7300F111E4 /* UIColor+RichTextEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+RichTextEditor.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -272,6 +280,8 @@
 				924F1665221E6355002F8A13 /* RTEColorPickerView.m */,
 				924F1697221E74AD002F8A13 /* RTEColorBlockCell.h */,
 				924F1698221E74AD002F8A13 /* RTEColorBlockCell.m */,
+				925E0742221FB79600F8EE93 /* RTEAddColorCell.h */,
+				925E0743221FB79600F8EE93 /* RTEAddColorCell.m */,
 				153F9583179F9953005B2487 /* RichTextEditorPopover.h */,
 				925E0731221FA4F300F8EE93 /* RTELocalization.h */,
 				925E0732221FA4F300F8EE93 /* RTELocalization.m */,
@@ -285,6 +295,7 @@
 				15C4133317A48C2C0073D047 /* buttons */,
 				15C412F217A4444B0073D047 /* backcolor.png */,
 				924F1683221E6F33002F8A13 /* rte_back@3x.png */,
+				925E0740221FB74300F8EE93 /* rte_add_color@3x.png */,
 				921432E920C515530027D707 /* bold_disabled@2x.png */,
 				1AFAED7117C7F9CA00E450B0 /* bold@2x.png */,
 				1AFAED8517C804AB00E450B0 /* bullist@2x.png */,
@@ -317,6 +328,8 @@
 				924F1663221E62C2002F8A13 /* RTEColorPicker.xib */,
 				924F169A221E7564002F8A13 /* RTEColorBlock.nib */,
 				924F1696221E747D002F8A13 /* RTEColorBlock.xib */,
+				925E0747221FB95B00F8EE93 /* RTEAddColor.nib */,
+				925E0745221FB89B00F8EE93 /* RTEAddColor.xib */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -578,6 +591,7 @@
 				15C4132917A4444B0073D047 /* undo.png in Resources */,
 				15C4132A17A4444B0073D047 /* unlink.png in Resources */,
 				15C4133817A48C6D0073D047 /* button.png in Resources */,
+				925E0741221FB74300F8EE93 /* rte_add_color@3x.png in Resources */,
 				15C4133917A48C6D0073D047 /* buttoncenter.png in Resources */,
 				15C4133A17A48C6D0073D047 /* buttonleft.png in Resources */,
 				15C4133B17A48C6D0073D047 /* buttonright.png in Resources */,
@@ -592,6 +606,7 @@
 				1AFAED7417C7F9CA00E450B0 /* underline@2x.png in Resources */,
 				1AFAED7517C7F9CA00E450B0 /* bold@2x.png in Resources */,
 				1AFAED7717C8013900E450B0 /* justifyleft@2x.png in Resources */,
+				925E0748221FB95B00F8EE93 /* RTEAddColor.nib in Resources */,
 				1AFAED7B17C8022000E450B0 /* justifyfull@2x.png in Resources */,
 				1AFAED7C17C8022000E450B0 /* justifyright@2x.png in Resources */,
 				1AFAED7D17C8022000E450B0 /* justifycenter@2x.png in Resources */,
@@ -651,6 +666,7 @@
 				153F959F179F9953005B2487 /* WETouchableView.m in Sources */,
 				158389231735A5D7006DE713 /* AppDelegate.m in Sources */,
 				158389321735A5D7006DE713 /* ViewController.m in Sources */,
+				925E0744221FB79600F8EE93 /* RTEAddColorCell.m in Sources */,
 				153F95A1179F9953005B2487 /* RichTextEditorColorPickerViewController.m in Sources */,
 				924F1666221E6355002F8A13 /* RTEColorPickerView.m in Sources */,
 				153F958A179F9953005B2487 /* NSAttributedString+RichTextEditor.m in Sources */,
