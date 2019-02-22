@@ -29,6 +29,7 @@
 #import "UIView+RichTextEditor.h"
 #import "RTEColorBlockCell.h"
 #import "UIColor+RichTextEditor.h"
+#import "RTELocalization.h"
 
 @interface RTEColorPickerView () <UICollectionViewDelegate, UICollectionViewDataSource>
 
@@ -62,8 +63,12 @@
 	// hide custom panel first
 	self.customPanel.hidden = true;
 	
+	// text
+	self.predefinedColorsLabel.text = _RTE_L(@"predefined.colors");
+	self.recentUsedColorsLabel.text = _RTE_L(@"recently.used.colors");
+	
 	// default columns
-	self.colorColumns = 10;
+	self.colorColumns = 12;
 	
 	// collection view
 	[self.predefinedCollectionView registerNib:[UINib nibWithNibName:@"RTEColorBlock" bundle:[NSBundle mainBundle]]

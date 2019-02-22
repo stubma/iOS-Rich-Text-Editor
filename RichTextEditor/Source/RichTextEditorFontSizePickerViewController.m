@@ -26,6 +26,7 @@
 // THE SOFTWARE.
 
 #import "RichTextEditorFontSizePickerViewController.h"
+#import "RTELocalization.h"
 
 @interface RichTextEditorFontSizePickerViewController () <UITextFieldDelegate>
 
@@ -51,20 +52,9 @@
 	else
 		self.fontSizes = @[@8, @10, @12, @14, @16, @18, @20, @22, @24, @26, @28, @30];
 
-	NSString* lan = [[NSLocale preferredLanguages] objectAtIndex:0];
-	if(!lan) {
-		lan = @"en";
-	}
-	if([lan length] > 2) {
-		lan = [lan substringToIndex:2];
-	}
-	BOOL isChinese = [@"zh" isEqualToString:lan];
-	NSString* lprojDir = isChinese ? @"zh-Hans.lproj" : @"en.lproj";
-	NSString* path = [[NSBundle mainBundle] pathForResource:@"RichTextEditor" ofType:@"strings" inDirectory:lprojDir];
-	NSDictionary *localizedDict = [[NSDictionary alloc] initWithContentsOfFile:path];
 	self.customFontSizeInput = [UITextField new];
 	[self.view addSubview:self.customFontSizeInput];
-	self.customFontSizeInput.placeholder = localizedDict[@"placeholder.custom.font.size"];
+	self.customFontSizeInput.placeholder = _RTE_L(@"placeholder.custom.font.size");
 	self.customFontSizeInput.layer.borderWidth = 1;
 	self.customFontSizeInput.layer.borderColor = [UIColor colorWithRed:0xe1 / 255.0f
 																 green:0xe1 / 255.0f
@@ -75,7 +65,7 @@
 	self.customFontSizeInput.delegate = self;
 	
 	self.okButton = [UIButton buttonWithType:UIButtonTypeSystem];
-	[self.okButton setTitle:localizedDict[@"ok"] forState:UIControlStateNormal];
+	[self.okButton setTitle:_RTE_L(@"ok") forState:UIControlStateNormal];
 	[self.okButton addTarget:self
 					  action:@selector(onCustomFontSizeOKClicked:)
 			forControlEvents:UIControlEventTouchUpInside];

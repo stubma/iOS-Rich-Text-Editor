@@ -1,2 +1,4 @@
 ok = "确定";
 placeholder.custom.font.size = "自定义大小";
+predefined.colors = "预定义";
+recently.used.colors = "最近使用";

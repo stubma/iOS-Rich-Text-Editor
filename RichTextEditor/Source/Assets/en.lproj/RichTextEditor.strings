@@ -1,2 +1,4 @@
 ok = "OK";
 placeholder.custom.font.size = "Custom Size";
+predefined.colors = "Predefined Colors";
+recently.used.colors = "Recently Used Colors";
