@@ -229,6 +229,8 @@
 		925E0743221FB79600F8EE93 /* RTEAddColorCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RTEAddColorCell.m; sourceTree = "<group>"; };
 		925E0745221FB89B00F8EE93 /* RTEAddColor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RTEAddColor.xib; sourceTree = "<group>"; };
 		925E0747221FB95B00F8EE93 /* RTEAddColor.nib */ = {isa = PBXFileReference; lastKnownFileType = file; path = RTEAddColor.nib; sourceTree = "<group>"; };
+		925E0755221FE64600F8EE93 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/RichTextEditor.strings; sourceTree = "<group>"; };
+		925E0756221FE64C00F8EE93 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/RichTextEditor.strings; sourceTree = "<group>"; };
 		92C6552520806E7200F111E4 /* UIColor+RichTextEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+RichTextEditor.h"; sourceTree = "<group>"; };
 		92C6552620806E7300F111E4 /* UIColor+RichTextEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+RichTextEditor.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -540,6 +542,8 @@
 			knownRegions = (
 				en,
 				"zh-Hans",
+				fr,
+				de,
 			);
 			mainGroup = 158389031735A5D7006DE713;
 			productRefGroup = 1583890F1735A5D7006DE713 /* Products */;
@@ -731,6 +735,8 @@
 			children = (
 				924245EA207F22F400BD6988 /* en */,
 				924245EC207F231F00BD6988 /* zh-Hans */,
+				925E0755221FE64600F8EE93 /* fr */,
+				925E0756221FE64C00F8EE93 /* de */,
 			);
 			name = RichTextEditor.strings;
 			sourceTree = "<group>";
