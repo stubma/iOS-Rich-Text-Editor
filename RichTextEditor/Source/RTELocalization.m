@@ -40,8 +40,13 @@ NSString* _RTE_L(NSString* key) {
 		lan = [lan substringToIndex:2];
 	}
 	BOOL isChinese = [@"zh" isEqualToString:lan];
-	NSString* lprojDir = isChinese ? @"zh-Hans.lproj" : @"en.lproj";
+	NSString* lprojDir = isChinese ? @"zh-Hans.lproj" : [NSString stringWithFormat:@"%@.lproj", lan];
 	NSString* path = [[NSBundle mainBundle] pathForResource:@"RichTextEditor" ofType:@"strings" inDirectory:lprojDir];
+	NSFileManager* fm = [NSFileManager defaultManager];
+	if(![fm fileExistsAtPath:path]) {
+		lprojDir = @"en.lproj";
+		path = [[NSBundle mainBundle] pathForResource:@"RichTextEditor" ofType:@"strings" inDirectory:lprojDir];
+	}
 	NSDictionary *localizedDict = [[NSDictionary alloc] initWithContentsOfFile:path];
 	return localizedDict[key];
 }
