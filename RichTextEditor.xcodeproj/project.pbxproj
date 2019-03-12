@@ -92,7 +92,6 @@
 		924F1684221E6F33002F8A13 /* rte_back@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 924F1683221E6F33002F8A13 /* rte_back@3x.png */; };
 		924F1699221E74AD002F8A13 /* RTEColorBlockCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 924F1698221E74AD002F8A13 /* RTEColorBlockCell.m */; };
 		924F169B221E7564002F8A13 /* RTEColorBlock.nib in Resources */ = {isa = PBXBuildFile; fileRef = 924F169A221E7564002F8A13 /* RTEColorBlock.nib */; };
-		9254310622378BB200637A01 /* rte_emoji@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9254310522378BB200637A01 /* rte_emoji@3x.png */; };
 		925E0733221FA4F300F8EE93 /* RTELocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 925E0732221FA4F300F8EE93 /* RTELocalization.m */; };
 		925E0741221FB74300F8EE93 /* rte_add_color@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 925E0740221FB74300F8EE93 /* rte_add_color@3x.png */; };
 		925E0744221FB79600F8EE93 /* RTEAddColorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 925E0743221FB79600F8EE93 /* RTEAddColorCell.m */; };
@@ -223,7 +222,6 @@
 		924F1697221E74AD002F8A13 /* RTEColorBlockCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTEColorBlockCell.h; sourceTree = "<group>"; };
 		924F1698221E74AD002F8A13 /* RTEColorBlockCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RTEColorBlockCell.m; sourceTree = "<group>"; };
 		924F169A221E7564002F8A13 /* RTEColorBlock.nib */ = {isa = PBXFileReference; lastKnownFileType = file; path = RTEColorBlock.nib; sourceTree = "<group>"; };
-		9254310522378BB200637A01 /* rte_emoji@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rte_emoji@3x.png"; sourceTree = "<group>"; };
 		925E0731221FA4F300F8EE93 /* RTELocalization.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTELocalization.h; sourceTree = "<group>"; };
 		925E0732221FA4F300F8EE93 /* RTELocalization.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RTELocalization.m; sourceTree = "<group>"; };
 		925E0740221FB74300F8EE93 /* rte_add_color@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rte_add_color@3x.png"; sourceTree = "<group>"; };
@@ -300,7 +298,6 @@
 				15C412F217A4444B0073D047 /* backcolor.png */,
 				924F1683221E6F33002F8A13 /* rte_back@3x.png */,
 				925E0740221FB74300F8EE93 /* rte_add_color@3x.png */,
-				9254310522378BB200637A01 /* rte_emoji@3x.png */,
 				921432E920C515530027D707 /* bold_disabled@2x.png */,
 				1AFAED7117C7F9CA00E450B0 /* bold@2x.png */,
 				1AFAED8517C804AB00E450B0 /* bullist@2x.png */,
@@ -594,7 +591,6 @@
 				924F169B221E7564002F8A13 /* RTEColorBlock.nib in Resources */,
 				15C4132217A4444B0073D047 /* link.png in Resources */,
 				15C4132517A4444B0073D047 /* redo.png in Resources */,
-				9254310622378BB200637A01 /* rte_emoji@3x.png in Resources */,
 				15C4132617A4444B0073D047 /* removeformat.png in Resources */,
 				15C4132917A4444B0073D047 /* undo.png in Resources */,
 				15C4132A17A4444B0073D047 /* unlink.png in Resources */,
