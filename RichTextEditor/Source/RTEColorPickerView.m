@@ -43,6 +43,7 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UICollectionView *recentCollectionView;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *predefinedColorsLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *recentUsedColorsLabel;
+@property (unsafe_unretained, nonatomic) IBOutlet UISlider *alphaSlider;
 @property (nonatomic, strong) NSIndexPath* selectedColorIndexPath;
 @property (nonatomic, assign) UICollectionView* activeCollectionView;
 @property (nonatomic, strong) NSMutableArray<NSString*>* recentColors;
@@ -52,6 +53,7 @@
 @property (nonatomic, assign, readonly) UIColor* selectedBlockColor;
 
 - (IBAction)onBackClicked:(id)sender;
+- (IBAction)onAlphaChanged:(id)sender;
 
 @end
 
@@ -80,6 +82,9 @@
 	
 	// default columns
 	self.colorColumns = 11;
+	
+	// default alpha
+	self.alphaSlider.value = 1;
 	
 	// collection view
 	[self.predefinedCollectionView registerNib:[UINib nibWithNibName:@"RTEColorBlock" bundle:[NSBundle mainBundle]]
@@ -178,6 +183,13 @@
 		self.selectedColorIndexPath = nil;
 		[self.activeCollectionView reloadData];
 	}
+}
+
+- (IBAction)onAlphaChanged:(id)sender {
+	self.selectedColorView.backgroundColor = [self.selectedColorView.backgroundColor colorWithAlphaComponent:self.alphaSlider.value];
+	self.colorChanged = true;
+	[self.delegate richTextEditorColorPickerViewControllerDidSelectColor:self.selectedColorView.backgroundColor
+															  withAction:self.action];
 }
 
 #pragma mark - Private Methods -

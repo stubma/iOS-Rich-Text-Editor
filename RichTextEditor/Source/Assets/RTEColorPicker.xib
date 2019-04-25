@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,7 +18,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="331" height="131"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="colors.png" translatesAutoresizingMaskIntoConstraints="NO" id="17q-6g-cO1">
-                            <rect key="frame" x="0.0" y="0.0" width="296" height="131"/>
+                            <rect key="frame" x="0.0" y="0.0" width="296" height="99"/>
                             <color key="backgroundColor" red="0.94509803920000002" green="0.32156862749999998" blue="0.41176470590000003" alpha="1" colorSpace="calibratedRGB"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
@@ -56,15 +56,24 @@
                                 <action selector="onBackClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="C5I-Gj-F14"/>
                             </connections>
                         </button>
+                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="BK7-Yx-4aJ">
+                            <rect key="frame" x="-2" y="101" width="300" height="31"/>
+                            <connections>
+                                <action selector="onAlphaChanged:" destination="iN0-l3-epB" eventType="valueChanged" id="fF5-Td-J1a"/>
+                            </connections>
+                        </slider>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="17q-6g-cO1" secondAttribute="bottom" id="2hF-y2-5bn"/>
+                        <constraint firstAttribute="bottom" secondItem="17q-6g-cO1" secondAttribute="bottom" constant="32" id="2hF-y2-5bn"/>
                         <constraint firstItem="uvL-Xw-zHN" firstAttribute="top" secondItem="5Y0-ua-1GQ" secondAttribute="top" id="Ehv-sL-88m"/>
                         <constraint firstAttribute="trailing" secondItem="17q-6g-cO1" secondAttribute="trailing" constant="35" id="FH2-WL-Ilx"/>
+                        <constraint firstItem="BK7-Yx-4aJ" firstAttribute="leading" secondItem="5Y0-ua-1GQ" secondAttribute="leading" id="N5U-YY-EL3"/>
                         <constraint firstAttribute="trailing" secondItem="iJF-g8-ser" secondAttribute="trailing" id="NvN-La-0Je"/>
                         <constraint firstItem="17q-6g-cO1" firstAttribute="top" secondItem="5Y0-ua-1GQ" secondAttribute="top" id="ORH-uR-KY0"/>
                         <constraint firstAttribute="bottom" secondItem="iJF-g8-ser" secondAttribute="bottom" id="SRm-uo-ac1"/>
+                        <constraint firstItem="iJF-g8-ser" firstAttribute="leading" secondItem="BK7-Yx-4aJ" secondAttribute="trailing" constant="5" id="dDg-vM-eIX"/>
+                        <constraint firstAttribute="bottom" secondItem="BK7-Yx-4aJ" secondAttribute="bottom" id="q3M-Vl-0Tc"/>
                         <constraint firstAttribute="trailing" secondItem="uvL-Xw-zHN" secondAttribute="trailing" id="r1A-r0-eu3"/>
                         <constraint firstItem="17q-6g-cO1" firstAttribute="leading" secondItem="5Y0-ua-1GQ" secondAttribute="leading" id="xb4-FK-H6D"/>
                     </constraints>
@@ -145,6 +154,7 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="alphaSlider" destination="BK7-Yx-4aJ" id="I0D-uz-NUd"/>
                 <outlet property="backButton" destination="iJF-g8-ser" id="T6v-Gn-cHD"/>
                 <outlet property="blockPanel" destination="iq8-aX-wZW" id="04b-Ut-AUU"/>
                 <outlet property="colorsImageView" destination="17q-6g-cO1" id="R5T-iT-bAn"/>
