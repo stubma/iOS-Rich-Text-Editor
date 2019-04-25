@@ -70,6 +70,7 @@ typedef enum{
 - (NSArray *)fontSizeSelectionForRichTextEditorToolbar;
 - (NSArray *)fontFamilySelectionForRichTextEditorToolbar;
 - (NSArray *)predefinedColorsForRichTextEditorToolbar;
+- (NSArray *)predefinedBgColorsForRichTextEditorToolbar;
 - (UIViewController *)firsAvailableViewControllerForRichTextEditorToolbar;
 - (RichTextEditorFeature)featuresEnabledForRichTextEditorToolbar;
 @end

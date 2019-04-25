@@ -725,6 +725,15 @@
 	return @[];
 }
 
+- (NSArray *)predefinedBgColorsForRichTextEditorToolbar {
+	if (self.dataSource && [self.dataSource respondsToSelector:@selector(predefinedBgColorsForRichTextEditor:)])
+	{
+		return [self.dataSource predefinedBgColorsForRichTextEditor:self];
+	}
+	
+	return @[];
+}
+
 - (RichTextEditorFeature)featuresEnabledForRichTextEditorToolbar
 {
 	if (self.dataSource && [self.dataSource respondsToSelector:@selector(featuresEnabledForRichTextEditor:)])

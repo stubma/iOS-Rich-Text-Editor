@@ -674,7 +674,11 @@
 
 - (NSArray<NSString*>*)predefinedColorsForColorPickerViewController:(RichTextEditorColorPickerViewController*)cpvc {
 	if(self.dataSource && [self.dataSource respondsToSelector:@selector(predefinedColorsForRichTextEditorToolbar)]) {
-		return [self.dataSource predefinedColorsForRichTextEditorToolbar];
+		if(cpvc.action == RichTextEditorColorPickerActionTextForegroudColor) {
+			return [self.dataSource predefinedColorsForRichTextEditorToolbar];
+		} else {
+			return [self.dataSource predefinedBgColorsForRichTextEditorToolbar];
+		}
 	}
 	return @[];
 }
