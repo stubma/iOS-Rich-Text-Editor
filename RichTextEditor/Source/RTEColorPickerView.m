@@ -196,7 +196,7 @@
 
 - (void)populateColorsForPoint:(CGPoint)point
 {
-	self.selectedColorView.backgroundColor = [self.colorsImageView colorOfPoint:point];
+	self.selectedColorView.backgroundColor = [[self.colorsImageView colorOfPoint:point] colorWithAlphaComponent:self.alphaSlider.value];
 }
 
 #pragma mark - Touch Detection -

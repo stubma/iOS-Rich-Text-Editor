@@ -57,7 +57,7 @@
                             </connections>
                         </button>
                         <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="BK7-Yx-4aJ">
-                            <rect key="frame" x="-2" y="101" width="300" height="31"/>
+                            <rect key="frame" x="28" y="101" width="240" height="31"/>
                             <connections>
                                 <action selector="onAlphaChanged:" destination="iN0-l3-epB" eventType="valueChanged" id="fF5-Td-J1a"/>
                             </connections>
@@ -68,11 +68,11 @@
                         <constraint firstAttribute="bottom" secondItem="17q-6g-cO1" secondAttribute="bottom" constant="32" id="2hF-y2-5bn"/>
                         <constraint firstItem="uvL-Xw-zHN" firstAttribute="top" secondItem="5Y0-ua-1GQ" secondAttribute="top" id="Ehv-sL-88m"/>
                         <constraint firstAttribute="trailing" secondItem="17q-6g-cO1" secondAttribute="trailing" constant="35" id="FH2-WL-Ilx"/>
-                        <constraint firstItem="BK7-Yx-4aJ" firstAttribute="leading" secondItem="5Y0-ua-1GQ" secondAttribute="leading" id="N5U-YY-EL3"/>
+                        <constraint firstItem="BK7-Yx-4aJ" firstAttribute="leading" secondItem="5Y0-ua-1GQ" secondAttribute="leading" constant="30" id="N5U-YY-EL3"/>
                         <constraint firstAttribute="trailing" secondItem="iJF-g8-ser" secondAttribute="trailing" id="NvN-La-0Je"/>
                         <constraint firstItem="17q-6g-cO1" firstAttribute="top" secondItem="5Y0-ua-1GQ" secondAttribute="top" id="ORH-uR-KY0"/>
                         <constraint firstAttribute="bottom" secondItem="iJF-g8-ser" secondAttribute="bottom" id="SRm-uo-ac1"/>
-                        <constraint firstItem="iJF-g8-ser" firstAttribute="leading" secondItem="BK7-Yx-4aJ" secondAttribute="trailing" constant="5" id="dDg-vM-eIX"/>
+                        <constraint firstItem="iJF-g8-ser" firstAttribute="leading" secondItem="BK7-Yx-4aJ" secondAttribute="trailing" constant="35" id="dDg-vM-eIX"/>
                         <constraint firstAttribute="bottom" secondItem="BK7-Yx-4aJ" secondAttribute="bottom" id="q3M-Vl-0Tc"/>
                         <constraint firstAttribute="trailing" secondItem="uvL-Xw-zHN" secondAttribute="trailing" id="r1A-r0-eu3"/>
                         <constraint firstItem="17q-6g-cO1" firstAttribute="leading" secondItem="5Y0-ua-1GQ" secondAttribute="leading" id="xb4-FK-H6D"/>
