@@ -39,6 +39,7 @@
 - (BOOL)shouldDisplayToolbarForRichTextEditor:(RichTextEditor *)richTextEditor;
 - (BOOL)shouldDisplayRichTextOptionsInMenuControllerForRichTextEditor:(RichTextEditor *)richTextEdiotor;
 - (BOOL)shouldApplyFontAttributesWithBoldTrait:(NSNumber *)isBold italicTrait:(NSNumber *)isItalic fontName:(NSString *)fontName fontSize:(NSNumber *)fontSize toTextAtRange:(NSRange)range textAfterApplied:(NSAttributedString*)text;
+- (BOOL)shouldApplyTypingAttributes:(NSDictionary<NSAttributedStringKey, id>*)attrs forTextEditor:(RichTextEditor*)richTextEditor;
 @end
 
 @interface RichTextEditor : UITextView
@@ -49,5 +50,8 @@
 - (void)setBorderColor:(UIColor*)borderColor;
 - (void)setBorderWidth:(CGFloat)borderWidth;
 - (NSString *)htmlString;
+
+// apply typing attributes and update toolbar
+- (void)syncTypingAttributes:(NSDictionary<NSAttributedStringKey, id>*)attrs;
 
 @end

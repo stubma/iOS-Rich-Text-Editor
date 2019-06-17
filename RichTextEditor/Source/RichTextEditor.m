@@ -492,7 +492,13 @@
 {
 	NSMutableDictionary *dictionary = [self.typingAttributes mutableCopy];
 	[dictionary setObject:attribute forKey:key];
-	[self setTypingAttributes:dictionary];
+	if(self.dataSource && [self.dataSource respondsToSelector:@selector(shouldApplyTypingAttributes:forTextEditor:)]) {
+		if([self.dataSource shouldApplyTypingAttributes:dictionary forTextEditor:self]) {
+			[self setTypingAttributes:dictionary];
+		}
+	} else {
+		[self setTypingAttributes:dictionary];
+	}
 }
 
 - (void)applyAttributes:(id)attribute forKey:(NSString *)key atRange:(NSRange)range
@@ -520,6 +526,12 @@
 		[self applyAttributeToTypingAttribute:attribute forKey:key];
 	}
 	
+	[self updateToolbarState];
+}
+
+- (void)syncTypingAttributes:(NSDictionary<NSAttributedStringKey, id>*)attrs {
+	self.typingAttributesInProgress = YES;
+	[self setTypingAttributes:attrs];
 	[self updateToolbarState];
 }
 
