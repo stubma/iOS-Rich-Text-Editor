@@ -31,6 +31,7 @@
 @class RichTextEditor;
 @protocol RichTextEditorDataSource <NSObject>
 @optional
+- (NSString*)preferenceNamespaceForRichTextEditor:(RichTextEditor*)richTextEditor;
 - (NSArray *)fontSizeSelectionForRichTextEditor:(RichTextEditor *)richTextEditor;
 - (NSArray *)fontFamilySelectionForRichTextEditor:(RichTextEditor *)richTextEditor;
 - (NSArray *)predefinedColorsForRichTextEditor:(RichTextEditor *)richTextEditor;

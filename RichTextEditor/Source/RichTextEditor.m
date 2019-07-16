@@ -47,6 +47,9 @@
 @property (nonatomic, assign) UIColor* lastSelectedForegroundColor;
 @property (nonatomic, assign) UIColor* lastSelectedBackgroundColor;
 
+// preference key prefix
+@property (nonatomic, strong) NSString* prefNS;
+
 @end
 
 @implementation RichTextEditor
@@ -57,6 +60,8 @@
 {
 	if (self = [super init])
 	{
+		self.borderColor = [UIColor lightGrayColor];
+		self.borderWidth = 1.0;
 		[self commonInitialization];
 	}
 	
@@ -67,29 +72,35 @@
 {
 	if (self = [super initWithFrame:frame])
 	{
+		self.borderColor = [UIColor lightGrayColor];
+		self.borderWidth = 1.0;
 		[self commonInitialization];
 	}
 	
 	return self;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-	if (self = [super initWithCoder:aDecoder])
-	{
-		[self commonInitialization];
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+	if(self = [super initWithCoder:aDecoder]) {
+		self.borderColor = [UIColor lightGrayColor];
+		self.borderWidth = 1.0;
 	}
-	
 	return self;
+}
+
+- (void)awakeFromNib {
+	[super awakeFromNib];
+	
+	[self commonInitialization];
 }
 
 - (void)commonInitialization
 {
-	self.borderColor = [UIColor lightGrayColor];
-	self.borderWidth = 1.0;
+	// get preference key prefix
+	self.prefNS = [self preferenceNamespaceForRichTextEditorToolbar];
 
 	// default value
-	[[NSUserDefaults standardUserDefaults] registerDefaults:@{@"RichTextEditor_fontSize": @37}];
+	[[NSUserDefaults standardUserDefaults] registerDefaults:@{[NSString stringWithFormat:@"%@_fontSize", self.prefNS]: @16}];
 	
 	self.toolBar = [[RichTextEditorToolbar alloc] initWithFrame:CGRectMake(0, 0, [self currentScreenBoundsDependOnOrientation].size.width, RICHTEXTEDITOR_TOOLBAR_HEIGHT)
 													   delegate:self
@@ -105,29 +116,29 @@
 
 - (NSString*)lastSelectedFontName {
 	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
-	return [d stringForKey:@"RichTextEditor_fontName"];
+	return [d stringForKey:[NSString stringWithFormat:@"%@_fontName", self.prefNS]];
 }
 
 - (void)setLastSelectedFontName:(NSString *)lastSelectedFontName {
 	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
-	[d setObject:lastSelectedFontName forKey:@"RichTextEditor_fontName"];
+	[d setObject:lastSelectedFontName forKey:[NSString stringWithFormat:@"%@_fontName", self.prefNS]];
 	[d synchronize];
 }
 
 - (NSInteger)lastSelectedFontSize {
 	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
-	return [d integerForKey:@"RichTextEditor_fontSize"];
+	return [d integerForKey:[NSString stringWithFormat:@"%@_fontSize", self.prefNS]];
 }
 
 - (void)setLastSelectedFontSize:(NSInteger)lastSelectedFontSize {
 	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
-	[d setInteger:lastSelectedFontSize forKey:@"RichTextEditor_fontSize"];
+	[d setInteger:lastSelectedFontSize forKey:[NSString stringWithFormat:@"%@_fontSize", self.prefNS]];
 	[d synchronize];
 }
 
 - (UIColor*)lastSelectedForegroundColor {
 	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
-	NSString* cstr = [d stringForKey:@"RichTextEditor_foregroundColor"];
+	NSString* cstr = [d stringForKey:[NSString stringWithFormat:@"%@_foregroundColor", self.prefNS]];
 	if(!cstr || [cstr length] <= 0) {
 		cstr = @"000000ff";
 	}
@@ -137,13 +148,13 @@
 - (void)setLastSelectedForegroundColor:(UIColor *)lastSelectedForegroundColor {
 	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
 	NSString* cstr = [UIColor rte_hexValuesFromUIColor:lastSelectedForegroundColor];
-	[d setObject:cstr forKey:@"RichTextEditor_foregroundColor"];
+	[d setObject:cstr forKey:[NSString stringWithFormat:@"%@_foregroundColor", self.prefNS]];
 	[d synchronize];
 }
 
 - (UIColor*)lastSelectedBackgroundColor {
 	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
-	NSString* cstr = [d stringForKey:@"RichTextEditor_backgroundColor"];
+	NSString* cstr = [d stringForKey:[NSString stringWithFormat:@"%@_backgroundColor", self.prefNS]];
 	if(!cstr || [cstr length] <= 0) {
 		cstr = @"00000000";
 	}
@@ -153,7 +164,7 @@
 - (void)setLastSelectedBackgroundColor:(UIColor *)lastSelectedBackgroundColor {
 	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
 	NSString* cstr = [UIColor rte_hexValuesFromUIColor:lastSelectedBackgroundColor];
-	[d setObject:cstr forKey:@"RichTextEditor_backgroundColor"];
+	[d setObject:cstr forKey:[NSString stringWithFormat:@"%@_backgroundColor", self.prefNS]];
 	[d synchronize];
 }
 
@@ -707,6 +718,15 @@
 }
 
 #pragma mark - RichTextEditorToolbarDataSource Methods -
+
+- (NSString*)preferenceNamespaceForRichTextEditorToolbar {
+	if (self.dataSource && [self.dataSource respondsToSelector:@selector(preferenceNamespaceForRichTextEditor:)])
+	{
+		return [self.dataSource preferenceNamespaceForRichTextEditor:self];
+	}
+	
+	return @"RichTextEditor";
+}
 
 - (NSArray *)fontFamilySelectionForRichTextEditorToolbar
 {

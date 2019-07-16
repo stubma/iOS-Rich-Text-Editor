@@ -65,6 +65,9 @@
 @property (nonatomic, assign, readonly) UIColor* lastSelectedForegroundColor;
 @property (nonatomic, assign, readonly) UIColor* lastSelectedBackgroundColor;
 
+// preference key prefix
+@property (nonatomic, strong) NSString* prefNS;
+
 @end
 
 @implementation RichTextEditorToolbar
@@ -77,6 +80,9 @@
 	{
 		self.delegate = delegate;
 		self.dataSource = dataSource;
+		
+		// get preference key prefix
+		self.prefNS = [self.dataSource preferenceNamespaceForRichTextEditorToolbar];
 		
 		self.backgroundColor = [UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1];
 		self.layer.borderWidth = .7;
@@ -93,17 +99,17 @@
 
 - (NSString*)lastSelectedFontName {
 	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
-	return [d stringForKey:@"RichTextEditor_fontName"];
+	return [d stringForKey:[NSString stringWithFormat:@"%@_fontName", self.prefNS]];
 }
 
 - (NSInteger)lastSelectedFontSize {
 	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
-	return [d integerForKey:@"RichTextEditor_fontSize"];
+	return [d integerForKey:[NSString stringWithFormat:@"%@_fontSize", self.prefNS]];
 }
 
 - (UIColor*)lastSelectedForegroundColor {
 	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
-	NSString* cstr = [d stringForKey:@"RichTextEditor_foregroundColor"];
+	NSString* cstr = [d stringForKey:[NSString stringWithFormat:@"%@_foregroundColor", self.prefNS]];
 	if(!cstr || [cstr length] <= 0) {
 		cstr = @"000000ff";
 	}
@@ -112,7 +118,7 @@
 
 - (UIColor*)lastSelectedBackgroundColor {
 	NSUserDefaults* d = [NSUserDefaults standardUserDefaults];
-	NSString* cstr = [d stringForKey:@"RichTextEditor_backgroundColor"];
+	NSString* cstr = [d stringForKey:[NSString stringWithFormat:@"%@_backgroundColor", self.prefNS]];
 	if(!cstr || [cstr length] <= 0) {
 		cstr = @"00000000";
 	}
@@ -494,7 +500,7 @@
 	[self.btnFontSize setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 10)];
 	NSInteger fontSize = self.lastSelectedFontSize;
 	if(fontSize <= 0) {
-		fontSize = 14;
+		fontSize = 16;
 	}
 	[self.btnFontSize setTitle:[NSString stringWithFormat:@"%ld", fontSize]
 					  forState:UIControlStateNormal];
