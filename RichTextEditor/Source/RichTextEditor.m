@@ -34,7 +34,7 @@
 
 #define RICHTEXTEDITOR_TOOLBAR_HEIGHT 40
 
-@interface RichTextEditor() <RichTextEditorToolbarDelegate, RichTextEditorToolbarDataSource>
+@interface RichTextEditor() <RichTextEditorToolbarDelegate, RichTextEditorToolbarDataSource, RichTextEditorToolbarStateProvider>
 @property (nonatomic, strong) RichTextEditorToolbar *toolBar;
 
 // Gets set to YES when the user starts chaning attributes when there is no text selection (selecting bold, italic, etc)
@@ -105,6 +105,7 @@
 	self.toolBar = [[RichTextEditorToolbar alloc] initWithFrame:CGRectMake(0, 0, [self currentScreenBoundsDependOnOrientation].size.width, RICHTEXTEDITOR_TOOLBAR_HEIGHT)
 													   delegate:self
 													 dataSource:self];
+	self.toolBar.stateProvider = self;
 	[self updateToolbarState];
 	self.typingAttributesInProgress = NO;
 	self.defaultIndentationSize = 15;
@@ -779,6 +780,15 @@
 - (UIViewController *)firsAvailableViewControllerForRichTextEditorToolbar
 {
 	return [self firstAvailableViewController];
+}
+
+#pragma mark - RichTextEditorToolbarStateProvider
+
+- (UIColor*)richTextEditorToolbarSelectedBackgroundColor {
+	if(self.stateProvider && [(id)self.stateProvider respondsToSelector:@selector(richTextEditorSelectedBackgroundColor:)]) {
+		return [self.stateProvider richTextEditorSelectedBackgroundColor:self];
+	}
+	return nil;
 }
 
 @end

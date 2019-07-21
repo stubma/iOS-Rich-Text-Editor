@@ -43,9 +43,16 @@
 - (BOOL)shouldApplyTypingAttributes:(NSDictionary<NSAttributedStringKey, id>*)attrs forTextEditor:(RichTextEditor*)richTextEditor;
 @end
 
+@protocol RichTextEditorStateProvider
+
+- (UIColor*)richTextEditorSelectedBackgroundColor:(RichTextEditor*)richTextEditor;
+
+@end
+
 @interface RichTextEditor : UITextView
 
 @property (nonatomic, weak) IBOutlet id <RichTextEditorDataSource> dataSource;
+@property (nonatomic, weak) IBOutlet id<RichTextEditorStateProvider> stateProvider;
 @property (nonatomic, assign) CGFloat defaultIndentationSize;
 
 - (void)setBorderColor:(UIColor*)borderColor;

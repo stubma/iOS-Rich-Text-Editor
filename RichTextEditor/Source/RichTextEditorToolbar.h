@@ -76,10 +76,17 @@ typedef enum{
 - (RichTextEditorFeature)featuresEnabledForRichTextEditorToolbar;
 @end
 
+@protocol RichTextEditorToolbarStateProvider
+
+- (UIColor*)richTextEditorToolbarSelectedBackgroundColor;
+
+@end
+
 @interface RichTextEditorToolbar : UIScrollView
 
 @property (nonatomic, weak) id <RichTextEditorToolbarDelegate> delegate;
 @property (nonatomic, weak) id <RichTextEditorToolbarDataSource> dataSource;
+@property (nonatomic, weak) id<RichTextEditorToolbarStateProvider> stateProvider;
 
 - (id)initWithFrame:(CGRect)frame delegate:(id <RichTextEditorToolbarDelegate>)delegate dataSource:(id <RichTextEditorToolbarDataSource>)dataSource;
 - (void)updateStateWithAttributes:(NSDictionary *)attributes;

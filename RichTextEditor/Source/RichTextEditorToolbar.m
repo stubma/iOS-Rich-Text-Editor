@@ -197,6 +197,12 @@
 	
 	// background icon
 	UIColor* backgroundColor = [attributes objectForKey:NSBackgroundColorAttributeName];
+	if(self.stateProvider) {
+		UIColor* bg = [self.stateProvider richTextEditorToolbarSelectedBackgroundColor];
+		if(bg) {
+			backgroundColor = bg;
+		}
+	}
 	if(backgroundColor) {
 		UIImage* img = [UIImage imageNamed:@"backcolor"];
 		UIGraphicsBeginImageContext(img.size);
